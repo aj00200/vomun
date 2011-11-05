@@ -118,6 +118,15 @@ class Friend:
         else:
             print packet_id, packet
 
+    def _begin_handshake(self):
+        print 'shaking hands'
+        ip = self.ip     # not sure what ip and key we need here?
+        key=self.keyid   # ours or the friends?
+        # encryptionmethod = "aes"
+        packet = make_packet("ConnectionRequest", encryptionmethod="rsa",ip=ip,
+                           iplength = len(ip), key = key, keylength = len(key))
+        self.send(packet)
+
     def rename(self, newname):
         '''Rename the Friend'''
         self.name = newname
@@ -136,7 +145,7 @@ class Friend:
         #if not self.connected and not system:
         #    print 'not connected: Message discarded. Message was: %s' % message
         #    return
-        message = self.encryption.encrypt(data)
+        message = str(self.encryption.encrypt(data))
         print('Encrypted: %s' % message)
         self.wconnection.send(message)
 
@@ -180,6 +189,10 @@ class Friend:
 
 
 ## API section
+
+
+
+
 @register_with_api
 def get_friend_by_ip(ip):
     '''Search for a Friend object with the given ip and return it.'''
@@ -223,3 +236,9 @@ def friend_list():
     '''Return a list of friends.'''
     friendslist = [friend._rpc() for friend in global_vars['friends'].values()]
     return friendslist
+
+@register_with_api
+def friend_connect(friend):
+    friend = get_friend_by_name(friend)
+    friend.connect()
+    friend._begin_handshake()

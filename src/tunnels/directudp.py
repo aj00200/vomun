@@ -18,17 +18,6 @@ class Connection(tunnels.base.Connection):
         self.data = ""
         self.packages = {}
         
-        self.beginHandshake()
-        #self.send('{"type":"connect_request"}')
-        
-    def beginHandshake(self):
-        connectionRequest = libs.packets.packets[0]
-        ip = "192.168.1.104"
-        key="5416435343454"
-        # encryptionmethod = "aes"
-        packet = make_packet("ConnectionRequest", encryptionmethod="rsa",ip=ip,
-                           iplength = len(ip), key = key, keylength = len(key))
-        self.send(packet)
         
         #handshake is ended in friends.handle_packets
     def send(self, message):
