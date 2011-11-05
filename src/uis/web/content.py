@@ -10,7 +10,7 @@ template = '''
     <div id="header">
 
       <div id="headblock">
-	<h1>Anon+ The free social network</h1>
+	    <h1>Anon+ The free social network</h1>
       </div>
     </div>
     <div id="nav">
@@ -32,7 +32,7 @@ template = '''
 
 friend_page = '''
 <h3>Add a friend</h3>
-<form action="add_friend.cgi" method="GET">
+<form action="add_friend.cgi" method="get">
   <p>To add a friend, have them send you their public key and paste the information here:</p>
   <textarea id="key" name="key"></textarea>
   <p>Have your friend give you their IP address.</p>
@@ -44,7 +44,7 @@ friend_page = '''
 <h3>Your public key</h3>
 <p>If a friend wants to add you, send them this public key.</p>
 <form action="#">
-  <textarea>
+  <textarea rows="5">
 {key}
   </textarea>
 </form>

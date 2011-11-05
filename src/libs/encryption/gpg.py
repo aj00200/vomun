@@ -60,5 +60,9 @@ def export_key(fingerprint):
     key to verify your identity and to encrypt information to you.
     '''
     print('Exporting %s' % fingerprint)
-    print(gpg.export_keys(fingerprint))
     return gpg.export_keys(fingerprint)
+
+def import_key(data):
+    '''Store a key. This will generally be used when adding friends.'''
+    print('Importing key')
+    return gpg.import_keys(data)

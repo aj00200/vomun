@@ -99,8 +99,8 @@ template = '''{
     "username": "%s"
 }'''
 
-config = template % (KEYS_PATH,
-                     VOMUN_PATH,
+config = template % (KEYS_PATH.replace('\\', '\\\\'),
+                     VOMUN_PATH.replace('\\', '\\\\'),
                      fingerprint,
                      idfingerprint,
                      USER_NAME
