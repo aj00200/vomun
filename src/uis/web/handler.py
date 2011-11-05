@@ -59,7 +59,7 @@ class Handler(libs.events.Handler):
             libs.globals.global_vars['running'] = False
             libs.threadmanager.killall()
         elif path.startswith('/make_post.cgi?'):
-            parameters = unquote_pluz(path.split('?')[-1]).split('&')
+            parameters = unquote_plus(path.split('?')[-1]).split('&')
             for parameter in parameters:
                 item = parameter.split('=')
                 if item[0] == 'post':
@@ -69,6 +69,11 @@ class Handler(libs.events.Handler):
                         libs.globals.global_vars['config']['username'],
                         hashlib.sha256(post_contents).hexdigest(),
                         post_contents)))
+                        
+            connection.send_response(301)
+            connection.send_header('Location', 'http://localhost:7777/')
+            connection.end_headers()
+            connection.wfile.write('Redirecting')
         elif path == '/friends.html':
             connection.send_response(200)
             connection.send_header('Content-type', 'text/html')

@@ -162,7 +162,7 @@ key_form = '''
 '''
 
 post_box = '''
-<form action="/post.htm" method="get">
+<form action="/make_post.cgi" method="get">
   <textarea id="post" name="post"></textarea>
   <input type="submit" value="Send" />
 </form>
