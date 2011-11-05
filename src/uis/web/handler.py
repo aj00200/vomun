@@ -13,7 +13,7 @@ class Handler(libs.events.Handler):
     '''
     def __init__(self):
         self.posts = [
-            Post('aj00200', 'shuffilinhashinsmashin', 'Post contents')
+            Post('The Devs', '0000000000', 'Welcome to Anon+.<br />Just a warning, this system is not completely secure at this time. Messages are not encrypted and you will need to refresh this page to see new messages.')
         ]
         
     def got_message(self, packet):
