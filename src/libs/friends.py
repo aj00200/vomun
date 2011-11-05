@@ -76,7 +76,7 @@ class Friend:
         self.data = ''
         
         print('Setting up encryption. %s:%s' % (
-                libs.globals.global_vars['config']['nodekey'], self.keyid)
+                libs.globals.global_vars['config']['nodekey'], self.keyid))
         self.encryption = libs.encryption.gpg.Encryption(
                 libs.globals.global_vars['config']['nodekey'], self.keyid)
 
