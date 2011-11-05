@@ -26,14 +26,14 @@ class Encryption(libs.encryption.base.Encryption):
     def encrypt(self, string):
         '''Encrypt a message with public key, `keyid`'''
         # TODO: Eventually we want to switch armor to False (binary data)
-        gpg.encrypt(string, recipients = self.dest)
+        return gpg.encrypt(string, recipients = self.dest)
 
     def sign(self, string):
         '''Sign string with `keyid`. This will not be used in P2P, but may be
         used for other messages.
         '''
         # TODO: make sure that this works
-        gpg.sign(string, keyid = self.source)
+        return gpg.sign(string, keyid = self.source)
 
     def decrypt(self, string):
         '''Decrypt `string`'''
