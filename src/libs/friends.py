@@ -11,16 +11,16 @@ import libs.encryption.gpg
 from libs.packets import parse_packets, packets_by_id, make_packet
 from api.functions import register_with_api
 
-try:
-        f = open("friendlistpath", "r")
-        f.close()
-except IOError:
-        f = open("friendlistpath", "a")
-        f.close()
+
 
 global_vars['friends'] = {}
 friendlistpath = os.path.expanduser('~/.vomun/friends.json')
-friendlistr = open(friendlistpath, 'r')
+try:
+        friendlistr = open(friendlistpath, "r")
+        friendlistr.close()
+except IOError:
+        friendlistr = open(friendlistpath, "a")
+        friendlistr.close()
 
 def load_friends():
     '''Load the List of friends'''
