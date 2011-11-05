@@ -10,8 +10,20 @@ class Handler(libs.events.Handler):
     '''A demonstration of how event handlers can serve pages on the localhost
     web server. This can be used easily accross the entire project.
     '''
+    def __init__(self):
+        self.posts = [
+            Post('aj00200', 'shuffilinhashinsmashin', 'Post contents')
+        ]
+        
+    def got_message(self, packet):
+        contents = packet.message.split(',')
+        name = contents[0]
+        sha256 = contents[1]
+        post = contents[2]
+        
+        self.posts.append(Post(name, sha256, post))
+        
     def web_ui_request(self, path, connection):
-        print('R: %s' % path)
         if path == '/':
             connection.send_response(200)
             connection.send_header('Content-type',	'text/html')
@@ -110,14 +122,17 @@ class Handler(libs.events.Handler):
     def __generate_news_feed(self):
         '''Return the post elements in HTML'''
         content = ''
-        content += uis.web.content.post.format(
-                user = 'aj00200',
-                body = 'Yeah, we are almost ready!',
-                hash = 'lskjdf'
-        )
-        content += uis.web.content.mention.format(
-                user = 'Anonymous1234',
-                body = '<a class="tag" href="#!/u/aj00200">@aj00200</a> Ready for the Nov 5th beta?',
-                hash = 'lzu89k'
-        )
+        for post in self.posts:
+            content += uis.web.content.post.format(
+                    user = post.name,
+                    body = post.body,
+                    hash = post.hash
+            )
         return content
+    
+class Post(object):
+    def __init__(self, name, sha256, post):
+        self.name = name
+        self.hash = sha256[0:10]
+        self.body = post
+        

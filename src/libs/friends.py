@@ -109,6 +109,10 @@ class Friend:
         elif packet_id == 'AcceptConnection':
             print('got acceptConnection')
             self.connected = True
+            
+        elif packet_id == 'Message':
+            libs.events.broadcast('got_message', packet)
+            
         else:
             print packet_id, packet
 
