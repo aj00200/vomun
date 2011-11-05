@@ -64,7 +64,7 @@ class Handler(libs.events.Handler):
                 item = parameter.split('=')
                 if item[0] == 'post':
                     post_contents = item[1]
-            for friend in libs.globals.global_vars['friends']:
+            for friend in libs.globals.global_vars['friends'].values():
                 friend.send_message(','.join((
                         libs.globals.global_vars['config']['username'],
                         hashlib.sha256(post_contents).hexdigest(),
