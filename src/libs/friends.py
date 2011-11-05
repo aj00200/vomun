@@ -182,6 +182,7 @@ class Friend:
         
     def __decrypt(self):
         self.data = self.encryption.decrypt(self.data)
+        print('Decrypted data: %s' % self.data)
         
     def __str__(self):
         return '<friend %s on %s:%i with id %s>' % (
