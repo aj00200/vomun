@@ -133,9 +133,9 @@ class Friend:
             self.connect()
             #if not self.connected:
             #    raise ConnectionError('Could not reach %s' % self.ip)
-        if not self.connected and not system:
-            print 'not connected: Message discarded. Message was: %s' % message
-            return
+        #if not self.connected and not system:
+        #    print 'not connected: Message discarded. Message was: %s' % message
+        #    return
         message = self.encryption.encrypt(data)
         print('Encrypted: %s' % message)
         self.wconnection.send(message)
