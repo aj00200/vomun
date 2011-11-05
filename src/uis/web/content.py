@@ -46,7 +46,7 @@ friend_page = '''
 <form action="#">
   <textarea rows="5">
 {key}
-  </textarea>
+</textarea>
 </form>
 '''
   

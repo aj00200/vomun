@@ -1,5 +1,8 @@
+from urllib import unquote_plus
+
 import libs.events
 import libs.globals
+import libs.friends
 import uis.web.content
 import libs.encryption.gpg
 
@@ -57,18 +60,34 @@ class Handler(libs.events.Handler):
                     sidecontent = self.__friends2html()
             ))
         elif path.startswith('/add_friend.cgi?'):
-            parameters = path.split('?')[-1].split('&')
+            parameters = unquote_plus(path.split('?')[-1]).split('&')
+            keydata = ''
+            name = ''
+            ip = ''
+            
+            # Parse parameters
             for parameter in parameters:
                 item = parameter.split('=')
                 if item[0] == 'key':
-                    result = libs.encryption.gpg.import_key(item[1])
+                    keydata = item[1].replace('\\r', '').replace('\\n', '\n')
+                    result = libs.encryption.gpg.import_key(keydata)
+                elif item[0] == 'name':
+                    name = item[1]
+                elif item[0] == 'ip':
+                    ip = item[1]
+                    
+            # Add the friend object
+            libs.friends.add_friend(result.fingerprints[0], ip = ip,
+                                    port = 1337, name = name)
                 
+            # Notify the user of success
             connection.send_response(200)
             connection.send_header('Content-type', 'text/html')
             connection.wfile.write(uis.web.content.template.format(
                     title = 'Friend added',
                     pagetitle = 'Friend added',
-                    main = 'Your friend has been added.<br />%s' % parameters,
+                    main = 'Your friend has been added.<br />' +
+                        '<br />Key: %s' % result.fingerprints[0],
                     sidecontent = self.__friends2html()
             ))
         elif path == '/keys.html':
