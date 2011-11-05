@@ -32,9 +32,9 @@ if __name__ == '__main__':
     api.server.start()
     
     # Create the console. Later to be replaced with an extenal app
-    from libs.console import console
-    consoleO = console()
-    libs.threadmanager.register(consoleO)
+    #from libs.console import console
+    #consoleO = console()
+    #libs.threadmanager.register(consoleO)
     #consoleO.start()
     
     # Load and prepare our list of friends
