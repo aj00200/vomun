@@ -53,3 +53,12 @@ def generate_key(key_length = 2048, key_type = 'RSA', name = 'Anonymous'):
     key = gpg.gen_key(key_data)
 
     return key.fingerprint
+
+def export_key(fingerprint):
+    '''Find a key with the given fingerprint and return the armored, public
+    key. This needs to be done to add friends because friends need your public
+    key to verify your identity and to encrypt information to you.
+    '''
+    print('Exporting %s' % fingerprint)
+    print(gpg.export_keys(fingerprint))
+    return gpg.export_keys(fingerprint)

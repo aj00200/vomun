@@ -30,6 +30,27 @@ template = '''
 </html>
 '''
 
+friend_page = '''
+<h3>Add a friend</h3>
+<form action="add_friend.cgi" method="GET">
+  <p>To add a friend, have them send you their public key and paste the information here:</p>
+  <textarea id="key" name="key"></textarea>
+  <p>Have your friend give you their IP address.</p>
+  <input type="text" id="ip" name="ip" />
+  <p>Enter a name so you know who this friend is.</p>
+  <input type="text" id="name" name="name" />
+  <input type="submit" value="Add This Friend!" />
+</form>
+<h3>Your public key</h3>
+<p>If a friend wants to add you, send them this public key.</p>
+<form action="#">
+  <textarea>
+{key}
+  </textarea>
+</form>
+'''
+  
+
 globalcss = '''
 html, body {margin: 0px; padding: 0px; text-align: center;}
 #header {

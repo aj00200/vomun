@@ -58,7 +58,8 @@ print(' [*] Generating a 2048 bit node key')
 print('     this could take a while...')
 
 key_data = gpg.gen_key_input(key_type = 'RSA', key_length = 2048,
-                             name_real = 'Anonymous Node Key')
+                             name_real = 'Anonymous Node Key',
+                             name_email = 'anonymous')
 key = gpg.gen_key(key_data)
 fingerprint = key.fingerprint
 
@@ -70,7 +71,8 @@ print(' [*] Generating a 2048 bit identity key')
 print('     this could take a while...')
 
 idkey_data = gpg.gen_key_input(key_type = 'RSA', key_length = 2048,                               
-                               name_real = USER_NAME) # TODO: Allow password
+                               name_real = USER_NAME, # TODO: Allow password
+                               name_email = 'anonymous')
 idkey = gpg.gen_key(idkey_data)
 idfingerprint = idkey.fingerprint
 
