@@ -17,10 +17,11 @@ global_vars['friends'] = {}
 friendlistpath = os.path.expanduser('~/.vomun/friends.json')
 try:
         friendlistr = open(friendlistpath, "r")
-        friendlistr.close()
+
 except IOError:
         friendlistr = open(friendlistpath, "a")
         friendlistr.close()
+        friendlistr = open(friendlistpath, "r")
 
 def load_friends():
     '''Load the List of friends'''
