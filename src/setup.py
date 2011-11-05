@@ -115,7 +115,15 @@ except IOError as error:
     print('  [*] Error writing %s. Check file permissions' % CONFIG_PATH)
     raise libs.errors.InstallError('Could not write to %s.' % CONFIG_PATH)
 
+friendlistpath = os.path.expanduser('~/.vomun/friends.json')
+try:
+        friendlistr = open(friendlistpath, "r")
+        friendlistr.close()
 
+except IOError:
+        friendlistr = open(friendlistpath, "a")
+        friendlistr.close()
+        
 ## Setup complete
 print(' == Setup Complete ==')
 print('''
