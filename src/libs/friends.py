@@ -92,7 +92,7 @@ class Friend:
     def handle_packets(self, packet_id, packet):
         '''Handle actions depending on the ID of the packet.'''
         if packet_id in packets_by_id: # Known packet type?
-            packet_id = packets_by_id[packetId]
+            packet_id = packets_by_id[packet_id]
         else: # The packet has an unknown ID
             reason = 'Invalid packetId: %i' % packet_id
             disc = make_packet('Disconnect',reasonType='Custom',
