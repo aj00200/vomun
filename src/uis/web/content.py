@@ -14,9 +14,8 @@ template = '''
       </div>
     </div>
     <div id="nav">
-      <a href="index.htm">Home</a> | 
-      <a href="settings.htm">Settings</a> | 
-      <a href="profile.htm">Profile</a>
+      <a href="/">Home</a> | 
+      <a href="friends.html">Friends</a>
 
     </div>
     <div id="content">
@@ -165,5 +164,6 @@ key_form = '''
 post_box = '''
 <form action="/post.htm" method="get">
   <textarea id="post" name="post"></textarea>
+  <input type="submit" value="Send" />
 </form>
 '''

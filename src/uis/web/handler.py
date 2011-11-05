@@ -1,4 +1,5 @@
 from urllib import unquote_plus
+import hashlib
 
 import libs.events
 import libs.globals
@@ -57,6 +58,17 @@ class Handler(libs.events.Handler):
             ))
             libs.globals.global_vars['running'] = False
             libs.threadmanager.killall()
+        elif path.startswith('/make_post.cgi?'):
+            parameters = unquote_pluz(path.split('?')[-1]).split('&')
+            for parameter in parameters:
+                item = parameter.split('=')
+                if item[0] == 'post':
+                    post_contents = item[1]
+            for friend in libs.globals.global_vars['friends']:
+                friend.send_message(
+                        libs.globals.global_vars['config']['username'],
+                        hashlib.sha256(post_contents).hexdigest(),
+                        post_contents)
         elif path == '/friends.html':
             connection.send_response(200)
             connection.send_header('Content-type', 'text/html')

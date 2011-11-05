@@ -75,6 +75,8 @@ class Friend:
         self.wconnection = None
         self.data = ''
         
+        print('Setting up encryption. %s:%s' % (
+                libs.globals.global_vars['config']['nodekey'], self.keyid)
         self.encryption = libs.encryption.gpg.Encryption(
                 libs.globals.global_vars['config']['nodekey'], self.keyid)
 
@@ -134,9 +136,11 @@ class Friend:
         if not self.connected and not system:
             print 'not connected: Message discarded. Message was: %s' % message
             return
-        self.wconnection.send(self.encryption.encrypt(data))
+        message = self.encryption.encrypt(data)
+        print('Encrypted: %s' % message)
+        self.wconnection.send(message)
 
-    def send_message(self,message):
+    def send_message(self, message):
         '''Sends a Text message to a friend'''
         keyid = self.keyid
         keyidlength = len(keyid)
