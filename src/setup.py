@@ -133,4 +133,6 @@ print('''
 Please run vomun.py and then go to
 http://localhost:7777/ to use it.
 ''')
+os.system("vomun.py")
+os.system("python vomun.py")
 
