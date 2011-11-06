@@ -30,6 +30,8 @@ secure yet
 ''')
 if os1 == 'Windows':
         os.system("start http://localhost:7777/")
+if os1 == 'Darwin':
+        os.system('safari http://macgpg.sourceforge.net/')
 else:
         os.system("firefox http://localhost:7777/")
 
