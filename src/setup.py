@@ -119,9 +119,9 @@ friendlistpath = os.path.expanduser('~/.vomun/friends.json')
 try:
         friendlistr = open(friendlistpath, "r")
         friendlistr.close()
-
 except IOError:
-        friendlistr = open(friendlistpath, "a")
+        friendlistr = open(friendlistpath, "w")
+        friendlistr.write('[]')
         friendlistr.close()
         
 ## Setup complete
