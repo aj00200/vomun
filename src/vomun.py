@@ -2,6 +2,8 @@
 '''Start the program. Load segments of the program that need to be started and
 run them.'''
 import time
+import os
+import platform
 
 import libs.globals
 
@@ -14,6 +16,8 @@ import libs.events
 import libs.logs
 import libs.config
 
+os1 = platform.system()
+
 print('''
     == Warning! ==
 This is a beta release
@@ -24,6 +28,10 @@ important info
 as it is not
 secure yet
 ''')
+if os1 == 'Windows':
+        os.system("start http://localhost:7777/")
+else:
+        os.system("firefox http://localhost:7777/")
 
 ## Startup
 if __name__ == '__main__':

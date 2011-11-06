@@ -6,11 +6,18 @@ print('''
 import os
 import libs.errors
 
+
 try:
     import gnupg
 except ImportError:
+    import platform
+    os1 = platform.system()
     raise libs.errors.DependancyError(
                 'Please install https://code.google.com/p/python-gnupg/')
+    if os1 == 'Windows':
+        os.system("start http://www.gpg4win.org/")
+    else:
+        os.system("firefox http://www.gnupg.org/")
 
 ## Prepare for setup
 # Find local variables
@@ -131,4 +138,6 @@ print('''
 Please run vomun.py and then go to
 http://localhost:7777/ to use it.
 ''')
+os.system("vomun.py")
+os.system("python vomun.py")
 

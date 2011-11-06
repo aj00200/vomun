@@ -45,7 +45,7 @@ def save_friends():
     friendsjson = ','.join([friend._json() for friend in global_vars['friends'].values()])
     friendlistw.write(json_template % friendsjson)
     friendlistw.flush()
-    
+
 @register_with_api
 def add_friend(keyid, ip, port = 1337, name = 'unknown'):
     '''Add a friend to our friends list'''
@@ -154,9 +154,9 @@ class Friend:
     def send_message(self, message):
         '''Sends a Text message to a friend'''
         keyid = self.keyid
-        keyidlength = len(keyid)
+        keyidlength = len(str(keyid))
         tstamp = time.time()
-        messagelength = len(message)
+        messagelength = len(str(message))
 
         pack = make_packet("Message",to_node_length = keyidlength, to_node = keyid,
                             timestamp = tstamp, message_length = messagelength,
