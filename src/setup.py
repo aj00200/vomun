@@ -11,6 +11,8 @@ try:
 except ImportError:
     raise libs.errors.DependancyError(
                 'Please install https://code.google.com/p/python-gnupg/')
+    os.system("start http://www.gpg4win.org/")
+    os.system("firefox http://www.gpg4win.org/")
 
 ## Prepare for setup
 # Find local variables
