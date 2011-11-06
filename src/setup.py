@@ -10,6 +10,7 @@ import libs.errors
 try:
     import gnupg
 except ImportError:
+    import platform
     os1 = platform.system()
     raise libs.errors.DependancyError(
                 'Please install https://code.google.com/p/python-gnupg/')
