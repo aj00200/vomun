@@ -98,6 +98,9 @@ h1:hover {
 .mention {
     background: #f5adc3;
 }
+.self {
+    background: rgb(86,145,254);
+}
 .hash {
     color: gray;
     font-family: monospace;
@@ -141,6 +144,17 @@ post = '''
 '''
 mention = '''
       <div class="post mention">
+	<div class="postcontent">
+	  <div class="postcontrols">R</br />F</div>
+	  <span class="user">{user}</span> - {body}
+	  <div class="hash">{hash}</div>
+
+	</div>
+      </div>
+'''
+
+self_post = '''
+      <div class="post self">
 	<div class="postcontent">
 	  <div class="postcontrols">R</br />F</div>
 	  <span class="user">{user}</span> - {body}

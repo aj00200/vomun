@@ -22,7 +22,7 @@ class Handler(libs.events.Handler):
         sha256 = contents[1]
         post = contents[2]
         
-        self.posts.append(Post(name, sha256, post))
+        self.posts.insert(0, Post(name, sha256, post))
         
     def web_ui_request(self, path, connection):
         if path == '/':
@@ -69,6 +69,10 @@ class Handler(libs.events.Handler):
                         libs.globals.global_vars['config']['username'],
                         hashlib.sha256(post_contents).hexdigest(),
                         post_contents)))
+            self.posts.insert(0, Post(
+                    libs.globals.global_vars['config']['username'],
+                    hashlib.sha256(post_contents).hexdigest(),
+                    post_contents))
                         
             connection.send_response(301)
             connection.send_header('Location', 'http://localhost:7777/')
@@ -140,11 +144,24 @@ class Handler(libs.events.Handler):
         '''Return the post elements in HTML'''
         content = ''
         for post in self.posts:
-            content += uis.web.content.post.format(
-                    user = post.name,
-                    body = post.body,
-                    hash = post.hash
-            )
+            if post.type == 'mention':
+                content += uis.web.content.mention.format(
+                        user = post.name,
+                        body = post.body,
+                        hash = post.hash
+                )
+            elif post.type == 'self':
+                content += uis.web.content.self_post.format(
+                        user = post.name,
+                        body = post.body,
+                        hash = post.hash
+                )
+            else: # normal psot
+                content += uis.web.content.post.format(
+                        user = post.name,
+                        body = post.body,
+                        hash = post.hash
+                )
         return content
     
 class Post(object):
@@ -153,3 +170,9 @@ class Post(object):
         self.hash = sha256[0:10]
         self.body = post
         
+        if name == libs.globals.global_vars['config']['username']:
+            self.type = 'self'
+        elif '@'+libs.globals.global_vars['config']['username'] in self.body:
+            self.type = 'mention'
+        else:
+            self.type = 'normal'
