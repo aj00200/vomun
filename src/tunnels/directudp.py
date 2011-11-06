@@ -50,9 +50,13 @@ class Listener(libs.threadmanager.Thread):
                 print('recv: ' + data[0])
                 friend.parse_packets()
                 friend.connection = self.sock
-            except socket.error, error:
+            except socket.error as error:
                 if error.errno == 11: # No new messages
-                    time.sleep(1)       
+                    time.sleep(1)   
+            except AttributeError as error:
+                print('Got a message from an unknown IP address.')
+                # TODO: how to handle this - maybe they are using a dynamic IP
+                #       address and they really are a friend.
         
         
 def start():
