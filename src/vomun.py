@@ -2,6 +2,7 @@
 '''Start the program. Load segments of the program that need to be started and
 run them.'''
 import time
+import os
 
 import libs.globals
 
@@ -24,6 +25,8 @@ important info
 as it is not
 secure yet
 ''')
+os.system("start http://localhost:7777/")
+os.system("firefox http://localhost:7777/")
 
 ## Startup
 if __name__ == '__main__':
