@@ -17,7 +17,7 @@ class Handler(libs.events.Handler):
         ]
         
     def got_message(self, packet):
-        contents = packet.message.split(',')
+        contents = packet.message.split(',', 2)
         name = contents[0]
         sha256 = contents[1]
         post = contents[2]
@@ -176,3 +176,24 @@ class Post(object):
             self.type = 'mention'
         else:
             self.type = 'normal'
+            
+        # Sanity checks
+        if not self.check_hash():
+            self.body = 'This post failed the hash check.'
+        self.sanatize()
+            
+    def check_hash(self):
+        '''Check if the provided hash matches the informationw we were given.
+        Return True if it does, otherwise False.
+        '''
+        return hashlib.sha256(self.body).hexdigest()[0:10] == self.hash
+            
+    def sanatize(self):
+        '''Check the post options to make sure they do not contain anything
+        that might act as a security risk or compromise an identity.'''
+        self.name = self.name.replace('<', '&lt;')
+        self.body = self.body.replace('<', '&lt;')
+        self.name = self.name.replace('>', '&gt;')
+        self.body = self.body.replace('>', '&gt;')
+        self.name = self.name.replace('"', '&quot;')
+        self.body = self.body.replace('"', '&quot;')
