@@ -18,3 +18,7 @@ class RequiredVariables(unittest.TestCase):
         '''Make sure libs.globals.global_vars["anon+"]["VERSION"] exists.'''
         self.assertIsNotNone(libs.globals.global_vars['anon+']['VERSION'])
         self.assertGreater(libs.globals.global_vars['anon+']['VERSION'], 0)
+
+    def test_global_vars_anonplus_banner(self):
+        '''Make sure libs.globals.global_vars["anon+"]["banner"] exists'''
+        self.assertIsNotNone(libs.globals.global_vars['anon+']['banner'])
