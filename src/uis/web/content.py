@@ -15,8 +15,8 @@ template = '''
     </div>
     <div id="nav">
       <a href="/">Home</a> | 
-      <a href="friends.html">Friends</a>
-
+      <a href="friends.html">Friends</a> | 
+      <a href="shutdown.html">Shutdown</a>
     </div>
     <div id="content">
       <h2>{pagetitle}</h2>
