@@ -6,8 +6,8 @@ import tunnels.base
 import libs.events
 from libs.packets import make_packet
 from libs.construct import *
-connections = {}
 
+connections = {}
     
 class Connection(tunnels.base.Connection):
     '''UDP "connection" to a peer'''
