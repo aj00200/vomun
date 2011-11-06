@@ -44,13 +44,13 @@ def save_friends():
 ]'''
     friendsjson = ','.join([friend._json() for friend in global_vars['friends'].values()])
     friendlistw.write(json_template % friendsjson)
-
+    friendlistw.flush()
+    
 @register_with_api
 def add_friend(keyid, ip, port = 1337, name = 'unknown'):
     '''Add a friend to our friends list'''
     friend_obj = Friend(keyid, ip, port, name)
     global_vars['friends'][keyid] = friend_obj
-    
     save_friends()
 
 @register_with_api
