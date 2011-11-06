@@ -58,6 +58,7 @@ class Handler(libs.events.Handler):
             ))
             libs.globals.global_vars['running'] = False
             libs.threadmanager.killall()
+            libs.threadmanager.close_sockets()
         elif path.startswith('/make_post.cgi?'):
             parameters = unquote_plus(path.split('?')[-1]).split('&')
             for parameter in parameters:

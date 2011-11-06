@@ -50,6 +50,8 @@ def add_friend(keyid, ip, port = 1337, name = 'unknown'):
     '''Add a friend to our friends list'''
     friend_obj = Friend(keyid, ip, port, name)
     global_vars['friends'][keyid] = friend_obj
+    
+    save_friends()
 
 @register_with_api
 def del_friend(keyid):
