@@ -16,6 +16,8 @@ except ImportError:
                 'Please install https://code.google.com/p/python-gnupg/')
     if os1 == 'Windows':
         os.system("start http://www.gpg4win.org/")
+    if os1 == 'Darwin':
+        os.system('safari http://macgpg.sourceforge.net/')
     else:
         os.system("firefox http://www.gnupg.org/")
 
