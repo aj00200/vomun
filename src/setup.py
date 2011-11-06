@@ -6,13 +6,17 @@ print('''
 import os
 import libs.errors
 
+
 try:
     import gnupg
 except ImportError:
+    os1 = platform.system()
     raise libs.errors.DependancyError(
                 'Please install https://code.google.com/p/python-gnupg/')
-    os.system("start http://www.gpg4win.org/")
-    os.system("firefox http://www.gnupg.org/")
+    if os1 == 'Windows':
+        os.system("start http://www.gpg4win.org/")
+    else:
+        os.system("firefox http://www.gnupg.org/")
 
 ## Prepare for setup
 # Find local variables
