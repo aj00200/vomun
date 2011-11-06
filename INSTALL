@@ -1,0 +1,5 @@
+To install Anon+, please run setup.py in the src folder. You will be asked for
+a user name and two 2048 bit encryption keys will be generated for you.
+
+Afterwards, vomun.py will run automatically after the install. To start Anon+,
+just run Vomun at any time in the future.
