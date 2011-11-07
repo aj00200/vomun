@@ -3,3 +3,20 @@ a user name and two 2048 bit encryption keys will be generated for you.
 
 Afterwards, vomun.py will run automatically after the install. To start Anon+,
 just run Vomun at any time in the future.
+
+If you are on windows you need python 2.7 http://python.org/
+              and you also need gnupg at http://www.gpg4win.org
+
+if you are on mac osx or linux python is already on your computer but you need gnupg
+for linux : http://www.gnupg.org/
+for mac   : http://macgpg.sourceforge.net/
+
+to launch setup on windows just double click on it 
+and if you are on mac osx:
+put anonplus folder in the Desktop (for exemple)
+open terminal
+type in terminal:
+
+$ python Desktop/anonplus/src/setup.py
+
+Enjoy!
