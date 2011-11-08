@@ -31,4 +31,15 @@ aj00200:
  [I!] Put in an identity management system
  [IM] Develop a routing system, some discussion needed
 
-pharno:
+mou:
+ !  Create a *.anonplus files with all informations to easy add friends
+
+ !  add json and gnupg librarys beacause iphone os need json and gnupg and mac os need gnupg so its very important
+
+ !  GET ANONPLUS WORKING
+
+ [I] create a *.exe for newbies who dont understant what is python and the app redirect 
+     noobs to python.org download 2.7 (easyier for others)
+
+ [F] auto detect what is the os and redirect to the good site for download all we need
+ 
