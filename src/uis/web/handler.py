@@ -198,3 +198,6 @@ class Post(object):
         self.body = self.body.replace('>', '&gt;')
         self.name = self.name.replace('"', '&quot;')
         self.body = self.body.replace('"', '&quot;')
+        
+        # Features such as auto-linking and line breaks
+        self.body = self.body.replace('\n', '<br />')

@@ -28,12 +28,13 @@ important info
 as it is not
 secure yet
 ''')
+
 if os1 == 'Windows':
         os.system("start http://localhost:7777/")
 if os1 == 'Darwin':
         os.system('safari http://macgpg.sourceforge.net/')
-else:
-        os.system("firefox http://localhost:7777/")
+#else: # TODO: this blocks! Fix it.
+#        os.system("firefox http://localhost:7777/")
 
 ## Startup
 if __name__ == '__main__':
