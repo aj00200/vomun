@@ -8,18 +8,17 @@ import libs.errors
 
 
 try:
-    import gnupg
+    import Crypto
 except ImportError:
-    import platform
-    os1 = platform.system()
     raise libs.errors.DependancyError(
-                'Please install https://code.google.com/p/python-gnupg/')
-    if os1 == 'Windows':
-        os.system("start http://www.gpg4win.org/")
-    if os1 == 'Darwin':
-        os.system('safari http://macgpg.sourceforge.net/')
-    else:
-        os.system("firefox http://www.gnupg.org/")
+            'https://www.dlitz.net/software/pycrypto/')
+    import libs.browser # This is probably never run
+    libs.browser.open('https://www.dlitz.net/software/pycrypto/')
+    
+# Check PyCrpyto version basics - require v2.1.x or higher
+if Crypto.version_info[0] < 2 or Crypto.version_info[1] < 1:
+    raise libs.errors.DependancyError(
+            'Please update PyCrypto: https://www.dlitz.net/software/pycrypto/')
 
 ## Prepare for setup
 # Find local variables
@@ -66,11 +65,10 @@ print('[*] Setting up encryption keys')
 print(' [*] Generating a 2048 bit node key')
 print('     this could take a while...')
 
-key_data = gpg.gen_key_input(key_type = 'RSA', key_length = 2048,
-                             name_real = 'Anonymous Node Key',
-                             name_email = 'anonymous')
-key = gpg.gen_key(key_data)
-fingerprint = key.fingerprint
+# ####################################
+# TODO: Actually generate the key here
+# ####################################
+fingerprint = '0xWIN'
 
 print('  [*] Done. Key fingerprint:')
 print('      ' + fingerprint)
@@ -79,11 +77,10 @@ print('      ' + fingerprint)
 print(' [*] Generating a 2048 bit identity key')
 print('     this could take a while...')
 
-idkey_data = gpg.gen_key_input(key_type = 'RSA', key_length = 2048,                               
-                               name_real = USER_NAME, # TODO: Allow password
-                               name_email = 'anonymous')
-idkey = gpg.gen_key(idkey_data)
-idfingerprint = idkey.fingerprint
+# ####################################
+# TODO: Actually generate the key here
+# ####################################
+idfingerprint = '0xTHE GAME'
 
 print('  [*] Done. Key fingerprint:')
 print('      ' + idfingerprint)
