@@ -43,7 +43,7 @@ except OSError as error:
         print('  [*] %s already exists. Do not need to create.' % VOMUN_PATH)
 
 try:
-    print(' [*] Making ~/.vomun/gpg/')
+    print(' [*] Making ~/.vomun/keys/')
     os.mkdir(KEYS_PATH, 0700)
 except OSError as error:
     if error.errno != 17:
@@ -53,12 +53,6 @@ except OSError as error:
     else:
         print('  [*] %s already exists. Do not need to create.' % KEYS_PATH)
         
-# Setup python-gpg to use ~/.vomun/keys
-try:
-    gpg = gnupg.GPG(gnupghome = KEYS_PATH)
-except ValueError:
-    raise libs.errors.DependancyError('Please install GPG: http://gnupg.org/')
-
 ## Key setup
 # Generate 2048 bit node key
 print('[*] Setting up encryption keys')
@@ -92,7 +86,7 @@ print('      %s' % idfingerprint)
 print('[*] Generating the config file...')
 # template = '''
 # {
-#     "gnupgdir": "{keysdir}",
+#     "keydir": "{keysdir}",
 #     "vomundir": "{vomundir}",
 #     "nodekey": "{nodekey}",
 #     "userkey": "{userkey}",
@@ -100,7 +94,7 @@ print('[*] Generating the config file...')
 # }
 # '''
 template = '''{
-    "gnupgdir": "%s",
+    "keydir": "%s",
     "vomundir": "%s",
     "nodekey": "%s",
     "userkey": "%s",
