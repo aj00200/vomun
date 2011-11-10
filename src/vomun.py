@@ -16,7 +16,7 @@ import libs.events
 import libs.logs
 import libs.config
 
-os1 = platform.system()
+os = platform.system()
 
 print('''
     == Warning! ==
@@ -29,12 +29,14 @@ as it is not
 secure yet
 ''')
 
-if os1 == 'Windows':
+if os == 'Windows':
         os.system("start http://localhost:7777/")
-if os1 == 'Darwin':
+if os == 'Darwin':
         os.system('safari http://macgpg.sourceforge.net/')
-#else: # TODO: this blocks! Fix it.
-#        os.system("firefox http://localhost:7777/")
+if os == 'Linux':
+        os.system("firefox http://localhost:7777/")
+else:
+        print("Go to http://localhost:7777/")
 
 ## Startup
 if __name__ == '__main__':
