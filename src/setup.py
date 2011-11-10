@@ -8,17 +8,16 @@ import libs.errors
 
 
 try:
-    import Crypto
+    import gnupg
 except ImportError:
+    import platform
+    os1 = platform.system()
     raise libs.errors.DependancyError(
-            'https://www.dlitz.net/software/pycrypto/')
-    import libs.browser # This is probably never run
-    libs.browser.open('https://www.dlitz.net/software/pycrypto/')
-    
-# Check PyCrpyto version basics - require v2.1.x or higher
-if Crypto.version_info[0] < 2 or Crypto.version_info[1] < 1:
-    raise libs.errors.DependancyError(
-            'Please update PyCrypto: https://www.dlitz.net/software/pycrypto/')
+                'Please install https://code.google.com/p/python-gnupg/')
+    if os1 == 'Windows':
+        os.system("start http://www.gpg4win.org/")
+    else:
+        os.system("firefox http://www.gnupg.org/")
 
 ## Prepare for setup
 # Find local variables
@@ -65,27 +64,27 @@ print('[*] Setting up encryption keys')
 print(' [*] Generating a 2048 bit node key')
 print('     this could take a while...')
 
-# ####################################
-# TODO: Actually generate the key here
-# ####################################
-fingerprint = '0xWIN'
+key_data = gpg.gen_key_input(key_type = 'RSA', key_length = 2048,
+                             name_real = 'Anonymous Node Key',
+                             name_email = 'anonymous')
+key = gpg.gen_key(key_data)
+fingerprint = key.fingerprint
 
 print('  [*] Done. Key fingerprint:')
-print('      %s' % fingerprint)
-
+print('      ' + fingerprint)
 
 # Generate 2048 bit identity key
 print(' [*] Generating a 2048 bit identity key')
 print('     this could take a while...')
 
-# ####################################
-# TODO: Actually generate the key here
-# ####################################
-idfingerprint = '0xTHE GAME'
+idkey_data = gpg.gen_key_input(key_type = 'RSA', key_length = 2048,                               
+                               name_real = USER_NAME, # TODO: Allow password
+                               name_email = 'anonymous')
+idkey = gpg.gen_key(idkey_data)
+idfingerprint = idkey.fingerprint
 
 print('  [*] Done. Key fingerprint:')
-print('      %s' % idfingerprint)
-
+print('      ' + idfingerprint)
 
 ## Configuration
 # Generate the contents
@@ -141,4 +140,3 @@ http://localhost:7777/ to use it.
 ''')
 os.system("vomun.py")
 os.system("python vomun.py")
-
