@@ -3,7 +3,6 @@
 run them.'''
 import time
 import os
-import platform
 
 import libs.globals
 
@@ -12,6 +11,7 @@ print(libs.globals.global_vars['anon+']['banner'] %
         libs.globals.global_vars['anon+']['BUILD']))
         
 import libs.threadmanager
+import libs.browser
 import libs.events
 import libs.logs
 import libs.config
@@ -28,15 +28,6 @@ important info
 as it is not
 secure yet
 ''')
-
-if os == 'Windows':
-        os.system("start http://localhost:7777/")
-if os == 'Darwin':
-        os.system("safari http://localhost:7777/")
-if os == 'Linux':
-        os.system("firefox http://localhost:7777/")
-else:
-        print("Go to http://localhost:7777/")
 
 ## Startup
 if __name__ == '__main__':
@@ -61,6 +52,8 @@ if __name__ == '__main__':
     # Start the web interface
     import uis.web.manager
     uis.web.manager.start()
+    
+    libs.browser.open('http://localhost:7777/')
     
     # Start the API
 

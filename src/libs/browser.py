@@ -8,7 +8,9 @@ def open(url):
     '''Open a browser to the given URL'''
     if platform_name == 'Windows':
         os.system('start %s' % url)
-    if platform_name == 'Darwin':
+    elif platform_name == 'Darwin':
         os.system('safari %s' % url)
-    else:
+    elif os == 'Linux':
         os.system('firefox %s' % url)
+    else:
+        print('Please open %s' % url)
