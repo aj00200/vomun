@@ -22,7 +22,7 @@ Unassigned:
  [N] Design a signed release update system
 
 aj00200:
- [I!!!] Get a working setup.py
+ [I!] Get a working setup.py
       - Generate a key
       - Store the nodekey value in ~/.vomun/config.json
       - Allow the additon of friends
@@ -30,16 +30,17 @@ aj00200:
      - File paths, use os setting, not / by default
  [I!] Put in an identity management system
  [IM] Develop a routing system, some discussion needed
+ [N] Update the web UI
+     - Simpler
+     - JS loader for comments
+     - Chat mode (press enter to send)
 
 mou:
- !  Create a *.anonplus files with all informations to easy add friends
+ [!]  Create a *.anonplus files with all informations to easy add friends
 
- !  add json and gnupg librarys beacause iphone os need json and gnupg and mac os need gnupg so its very important
+ [!]  add json libraries beacause iphone os needs json and gnupg and mac os need gnupg so its very important
 
- !  GET ANONPLUS WORKING
+ [!]  GET ANONPLUS WORKING
 
- [I] create a *.exe for newbies who dont understant what is python and the app redirect 
+ [I] create a *.exe for newbies who dont understant what python is and the app redirect 
      noobs to python.org download 2.7 (easyier for others)
-
- [F] auto detect what is the os and redirect to the good site for download all we need
- 
