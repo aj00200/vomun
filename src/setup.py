@@ -3,7 +3,7 @@ print('''
 === Anon+ Setup ===
 == Project Vomun ==
 ''')
-import os, platform
+import os
 import libs.errors
 
 
