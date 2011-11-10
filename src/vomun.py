@@ -32,7 +32,7 @@ secure yet
 if os == 'Windows':
         os.system("start http://localhost:7777/")
 if os == 'Darwin':
-        os.system('safari http://macgpg.sourceforge.net/')
+        os.system("safari http://localhost:7777/")
 if os == 'Linux':
         os.system("firefox http://localhost:7777/")
 else:
