@@ -71,7 +71,8 @@ print('     this could take a while...')
 fingerprint = '0xWIN'
 
 print('  [*] Done. Key fingerprint:')
-print('      ' + fingerprint)
+print('      %s' % fingerprint)
+
 
 # Generate 2048 bit identity key
 print(' [*] Generating a 2048 bit identity key')
@@ -83,7 +84,8 @@ print('     this could take a while...')
 idfingerprint = '0xTHE GAME'
 
 print('  [*] Done. Key fingerprint:')
-print('      ' + idfingerprint)
+print('      %s' % idfingerprint)
+
 
 ## Configuration
 # Generate the contents
