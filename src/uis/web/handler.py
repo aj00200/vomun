@@ -100,6 +100,11 @@ class Handler(libs.events.Handler):
             connection.send_header('Location', 'http://localhost:7777/')
             connection.end_headers()
             connection.wfile.write('Redirecting')
+        elif path.startswith('/reply.cgi?'):
+            connection.send_response(301)
+            connection.send_header('Location', 'http://localhost:7777/')
+            connection.end_headers()
+            connections.wfile.write('Redirecting')
         elif path == '/friends.html':
             connection.send_response(200)
             connection.send_header('Content-type', 'text/html')
