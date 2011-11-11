@@ -13,21 +13,21 @@ class Encryption(object):
         self.source = source
         self.dest = dest
         
-    def encrypt(data):
+    def encrypt(self, data):
         '''Encrypt `data` with this encryption algorithm.'''
         return data
 
-    def decrypt(data):
+    def decrypt(self, data):
         '''Decrypt `data` with this encryption algorithm.'''
         return data
 
-    def sign(data):
+    def sign(self, data):
         '''If this algorithm supports signatures, sign `data`. Otherwise,
         return `data` untouched.
         '''
         return data
 
-    def verify(data):
+    def verify(self, data):
         '''Preform any verifications such as signature verifications to make
         sure that the message is authentic. If the algorithm does not support
         verification, return True.
