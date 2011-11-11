@@ -131,40 +131,42 @@ textarea {
 }
 '''
 
+post_controls = '''
+<div class="postcontrols"><a href="reply.cgi?{hash}"><img src="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA+0lEQVR42mNkoBAwUteAVxoOQNIBrw6xGw24DXioBpKsZ/gPlfmPpArEZmF0ZJC5eQC3ARdVGhj+/69H0QzjsDE5MmjdRtGMacBeBYgLsIFf/x0ZPB8SMGCZDG4DQCp/MTgyxD/B44U+CdwGgMC//wcYSl464jagRLiBgZERYgAbYyPDn//2DP+QYwUYFj+Brpj09gB2A2L4gYEIdAE7MLTnfYAoShJ0YPj5fz88VBmBBi/50IDdAGfuBqDmAwzbvqAGliePAzAQ90N5jQx7v+IwAB/QYYeEz5WfKHqIN0CcZT/QdY0Mj34fIM8AXiYHhs//DqALUzkzkQEAX29NEd152/AAAAAASUVORK5CYII=" /></a></br />
+        <a href="forward.cgi?{hash}"><img src="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABq0lEQVR42qWSv0sCYRjH3/curwPDQrAIEkPSMVqimryXJhEaaihaDGptbNY/oL2lhhyChnIKl4IXqq2gqUJEMSQ0EIyKEzvv6b33zvO3Db5w3L3Pj8/zfe55MBry4MZHcLeqpE9k2hkQ3Ksp6WOJ/guYi5YBgU4yCU9bcGDnMw4AoczpBBkI8G9lgd/0OsmeB2yIf/stzl4xhIBmz3ykL8C3/gC2CTSSTy5xyOzGU5w5YpjZmUSav1ggPQEz4RRTgC2TAfklhVSEeiPXDIBj3GVAAGjhapV0AaZJAvgVoyZE1wgSJcVsgWloFGCQ95tN0gbwLB/yFnCrCl5Rp1gQFRPe6tPpx/0+sQHu+QOwg1pUsGTKptMNwCItP8aaAFcgCobfGAW2grEgEQDNbsFsA/HkyvNRewtOb9icglVFECXylUvSMd+aNUbDLBgP/c5ddv9E2bNoA4zKavGOj1GeWuEAbMlWi7e9x+hw+YEHCQ5Sq7zaiySNB809YMm1ykv/RRJG3SCwZE0tta2yKE/GmapQXS0NXmUsygrUq7QzQBhxKrr2Q1Gfg9GQ5w9UupgRdo4gjgAAAABJRU5ErkJggg==" /></a></div>
+
+'''
 post = '''
       <div class="post">
 	<div class="postcontent">
-      <div class="postcontrols"><a href="reply.cgi?{hash}">R</a></br />
-        <a href="forward.cgi?{hash}">F</a></div>
+%s
 	  <span class="user">{user}</span> - {body}
 	  <div class="hash">{hash}</div>
 
 	</div>
       </div>
-'''
+''' % post_controls
 mention = '''
       <div class="post mention">
 	<div class="postcontent">
-	  <div class="postcontrols"><a href="reply.cgi?{hash}">R</a></br />
-        <a href="forward.cgi?{hash}">F</a></div>
+%s
 	  <span class="user">{user}</span> - {body}
 	  <div class="hash">{hash}</div>
 
 	</div>
       </div>
-'''
+''' % post_controls
 
 self_post = '''
       <div class="post self">
 	<div class="postcontent">
-      <div class="postcontrols"><a href="reply.cgi?{hash}">R</a></br />
-        <a href="forward.cgi?{hash}">F</a></div>
+%s
 	  <span class="user">{user}</span> - {body}
 	  <div class="hash">{hash}</div>
 
 	</div>
       </div>
-'''
+''' % post_controls
 
 friends_box = '''
 <h3>Friends</h3>
