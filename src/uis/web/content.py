@@ -90,8 +90,8 @@ h1:hover {
     display: block;
     min-height: 3em;
     border-radius: 10px;
-    border-left: 1px solid gray;
-    border-right: 10px solid #cef5ad;
+    border-right: 1px solid gray;
+    border-left: 10px solid #cef5ad;
     padding: 10px 5px 10px 5px;
 }
 .mention {
@@ -104,6 +104,7 @@ h1:hover {
     color: gray;
     font-family: monospace;
     float: right;
+    clear: right;
 }
 .user {
     font-weight: bold;
@@ -117,10 +118,10 @@ h1:hover {
     text-decoration: underline;
 }
 .postcontrols {
-    float: left;
-    padding-right: 2px;
-    margin-right: 3px;
-    border-right: 1px solid black;
+    float: right;
+    padding-left: 2px;
+    margin-left: 3px;
+    border-left: 1px solid black;
 }
 textarea {
     width: 80ex;
