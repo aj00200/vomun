@@ -16,8 +16,6 @@ import libs.events
 import libs.logs
 import libs.config
 
-os = platform.system()
-
 print('''
     == Warning! ==
 This is a beta release
