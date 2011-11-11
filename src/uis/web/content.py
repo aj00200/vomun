@@ -91,15 +91,14 @@ h1:hover {
     display: block;
     min-height: 3em;
     border-radius: 10px;
-    background-color: white;
-    background: #cef5ad;
-    box-shadow: 1px 1px 3px;
+    border-left: 10px solid #cef5ad;
+    box-shadow: 1px 1px 2px;
 }
 .mention {
-    background: #f5adc3;
+    border-left: 10px solid #f5adc3;
 }
 .self {
-    background: rgb(86,145,254);
+    border-left: 10px solid rgb(86,145,254);
 }
 .hash {
     color: gray;
