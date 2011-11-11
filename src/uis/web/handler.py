@@ -5,7 +5,7 @@ import libs.events
 import libs.globals
 import libs.friends
 import uis.web.content
-import libs.encryption.gpg
+import libs.encryption.rsa
 
 class Handler(libs.events.Handler):
     '''A demonstration of how event handlers can serve pages on the localhost
@@ -87,7 +87,7 @@ class Handler(libs.events.Handler):
                     title = 'Friend management',
                     pagetitle = 'Friends',
                     main = uis.web.content.friend_page.format(
-                            key = libs.encryption.gpg.export_key(
+                            key = libs.encryption.rsa.export_key(
                                 libs.globals.global_vars['config']['nodekey']
                             )
                         ),
@@ -104,7 +104,7 @@ class Handler(libs.events.Handler):
                 item = parameter.split('=')
                 if item[0] == 'key':
                     keydata = item[1].replace('\\r', '').replace('\\n', '\n')
-                    result = libs.encryption.gpg.import_key(keydata)
+                    result = libs.encryption.rsa.import_key(keydata)
                 elif item[0] == 'name':
                     name = item[1]
                 elif item[0] == 'ip':

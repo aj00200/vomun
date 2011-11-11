@@ -7,7 +7,7 @@ import time
 
 import tunnels.directudp as directudp
 from libs.globals import global_vars
-import libs.encryption.gpg
+import libs.encryption.rsa
 from libs.packets import parse_packets, packets_by_id, make_packet
 from api.functions import register_with_api
 
@@ -79,7 +79,7 @@ class Friend:
         
         print('Setting up encryption. %s:%s' % (
                 libs.globals.global_vars['config']['nodekey'], self.keyid))
-        self.encryption = libs.encryption.gpg.Encryption(
+        self.encryption = libs.encryption.rsa.Encryption(
                 libs.globals.global_vars['config']['nodekey'], self.keyid)
 
     def parse_packets(self):

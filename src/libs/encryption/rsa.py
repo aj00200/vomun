@@ -44,3 +44,11 @@ def load_key(sha256):
         key_file = open(key_path % sha256, 'r')
     except IOError:
         print('Key file, %s, could not be loaded. % sha256')
+        
+def import_key(keydata):
+    '''Import the key given in keydata.'''
+    return 'Key importing not ready.'
+        
+def export_key(keyid):
+    '''Export the key with the given key ID'''
+    return 'Waiting for encryption to work.'
