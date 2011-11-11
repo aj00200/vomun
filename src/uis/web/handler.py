@@ -1,5 +1,6 @@
 from urllib import unquote_plus
 import hashlib
+import time
 
 import libs.events
 import libs.globals
@@ -64,7 +65,7 @@ class Handler(libs.events.Handler):
             for parameter in parameters:
                 item = parameter.split('=')
                 if item[0] == 'post':
-                    post_contents = item[1]
+                    post_contents = item[1] + ' (%s)' % time.ctime()
             for friend in libs.globals.global_vars['friends'].values():
                 friend.send_message(','.join((
                         libs.globals.global_vars['config']['username'],
@@ -75,6 +76,26 @@ class Handler(libs.events.Handler):
                     hashlib.sha256(post_contents).hexdigest(),
                     post_contents))
                         
+            connection.send_response(301)
+            connection.send_header('Location', 'http://localhost:7777/')
+            connection.end_headers()
+            connection.wfile.write('Redirecting')
+        elif path.startswith('/forward.cgi?'):
+            parameters = unquote_plus(path.split('?')[-1])
+            post_hash = parameters.split('=')[-1]
+            
+            for post in self.posts:
+                print('Post: %s; FWD: %s' % (post.hash, post_hash))
+                if post.hash == post_hash:
+                    for friend in libs.globals.global_vars['friends'].values():
+                        friend.send_message(','.join((
+                                post.name,
+                                post.sha256,
+                                post.body
+                        )))
+                    self.posts.insert(0, post)
+                    break                 
+            
             connection.send_response(301)
             connection.send_header('Location', 'http://localhost:7777/')
             connection.end_headers()
@@ -168,6 +189,7 @@ class Handler(libs.events.Handler):
 class Post(object):
     def __init__(self, name, sha256, post):
         self.name = name
+        self.sha256 = sha256
         self.hash = sha256[0:10]
         self.body = post
         

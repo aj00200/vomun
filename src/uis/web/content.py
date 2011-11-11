@@ -87,18 +87,18 @@ h1:hover {
 /* Posts */
 .post {
     margin: 5px;
-    padding: 3px;
     display: block;
     min-height: 3em;
     border-radius: 10px;
-    border-left: 10px solid #cef5ad;
-    box-shadow: 1px 1px 2px;
+    border-left: 1px solid gray;
+    border-right: 10px solid #cef5ad;
+    padding: 10px 5px 10px 5px;
 }
 .mention {
-    border-left: 10px solid #f5adc3;
+    border-right: 10px solid #f5adc3;
 }
 .self {
-    border-left: 10px solid rgb(86,145,254);
+    border-right: 10px solid rgb(86,145,254);
 }
 .hash {
     color: gray;
@@ -134,7 +134,8 @@ textarea {
 post = '''
       <div class="post">
 	<div class="postcontent">
-	  <div class="postcontrols">R</br />F</div>
+      <div class="postcontrols"><a href="reply.cgi?{hash}">R</a></br />
+        <a href="forward.cgi?{hash}">F</a></div>
 	  <span class="user">{user}</span> - {body}
 	  <div class="hash">{hash}</div>
 
@@ -144,7 +145,8 @@ post = '''
 mention = '''
       <div class="post mention">
 	<div class="postcontent">
-	  <div class="postcontrols">R</br />F</div>
+	  <div class="postcontrols"><a href="reply.cgi?{hash}">R</a></br />
+        <a href="forward.cgi?{hash}">F</a></div>
 	  <span class="user">{user}</span> - {body}
 	  <div class="hash">{hash}</div>
 
@@ -155,7 +157,8 @@ mention = '''
 self_post = '''
       <div class="post self">
 	<div class="postcontent">
-	  <div class="postcontrols">R</br />F</div>
+      <div class="postcontrols"><a href="reply.cgi?{hash}">R</a></br />
+        <a href="forward.cgi?{hash}">F</a></div>
 	  <span class="user">{user}</span> - {body}
 	  <div class="hash">{hash}</div>
 
