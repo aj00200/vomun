@@ -22,19 +22,16 @@ class Encryption(object):
         return data
 
     def sign(self, data):
-        '''If this algorithm supports signatures, sign `data`. Otherwise,
-        return `data` untouched.
+        '''Create a RSA signature for the given data
         '''
         return data
 
     def verify(self, data):
-        '''Preform any verifications such as signature verifications to make
-        sure that the message is authentic. If the algorithm does not support
-        verification, return True.
+        '''Preform a verification on the RSA signature.
         '''
         return True
 
-def generate_key(key_length = 2408):
+def generate_key(key_length = 2048):
     '''Generate an RSA key of the given key length.'''
     new_key = Crypto.PublicKey.RSA.generate(key_length)
 
