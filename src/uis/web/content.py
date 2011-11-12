@@ -86,6 +86,7 @@ h1:hover {
 
 /* Posts */
 .post {
+    clear: both;
     margin: 5px;
     display: block;
     min-height: 3em;
@@ -124,7 +125,11 @@ h1:hover {
     border-left: 1px solid black;
 }
 textarea {
-    width: 80ex;
+    display: block;
+    width: 100%;
+}
+input[type="submit"] {
+    float: right;
 }
 /* Styles */
 #nav a {
