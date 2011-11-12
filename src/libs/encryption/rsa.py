@@ -2,7 +2,11 @@
 other encryption algorithms.
 '''
 import Crypto.PublicKey.RSA
+import hashlib
 import libs.config
+
+KEY_PATH = libs.globals.global_vars['config']['keydir'] + '%s.key'
+keys = {}
 
 class Encryption(object):
     '''Base object to contain encryption and keep the current session or
@@ -34,11 +38,30 @@ def generate_key(key_length = 2048):
     new_key = Crypto.PublicKey.RSA.generate(key_length)
 
 def load_key(sha256):
-    key_path = libs.globals.global_vars['config']['keypath'] + '%s.key'
+    '''Load the key from the KEY_PATH folder. Keys are stored by their sha256
+    hash to prevent modification.'''
+    # TODO: only hash the public key
     try:
-        key_file = open(key_path % sha256, 'r')
+        key_file = open(KEY_PATH % sha256, 'r')
+        key_data = key_file.read()
+        key_file.close()
+        if sha256 == hashlib.sha256(key_data).hexdigest():
+            keys[sha256] = Crypto.PublicKey.RSA.importKey(key_data)
+        else:
+            print('The key appears to be corrupt or modified.')
     except IOError:
-        print('Key file, %s, could not be loaded. % sha256')
+        print('Key file, %s, could not be loaded.' % sha256)
+        
+def save_key(sha256):
+    '''Save a key we have the sha256 hash of to the KEY_PATH folder.'''
+    # TODO: only hash the public key
+    try:
+        key_data = keys[sha256].exportKey()
+        key_file = open(KEY_PATH % sha256, 'w')
+        key_file.write(key_data)
+        key_file.close()
+    except IOError:
+        print('Key file, %s, could not be written.' % sha256)
         
 def import_key(keydata):
     '''Import the key given in keydata.'''
