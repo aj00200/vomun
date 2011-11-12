@@ -22,13 +22,11 @@ class Encryption(object):
         return data
 
     def sign(self, data):
-        '''Create a RSA signature for the given data
-        '''
+        '''Create a RSA signature for the given data'''
         return data
 
     def verify(self, data):
-        '''Preform a verification on the RSA signature.
-        '''
+        '''Preform a verification on the RSA signature.'''
         return True
 
 def generate_key(key_length = 2048):
