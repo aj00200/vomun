@@ -96,10 +96,10 @@ h1:hover {
     padding: 10px 5px 10px 5px;
 }
 .mention {
-    border-right: 10px solid #f5adc3;
+    border-left: 10px solid #f5adc3;
 }
 .self {
-    border-right: 10px solid rgb(86,145,254);
+    border-left: 10px solid rgb(86,145,254);
 }
 .hash {
     color: gray;
