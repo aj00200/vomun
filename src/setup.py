@@ -35,23 +35,23 @@ try:
     print(' [*] Making ~/.vomun/')
     os.mkdir(VOMUN_PATH, 0711)
 except OSError as error:
-    if error.errno != 17:
+    if error.errno == 17:
+        print('  [*] %s already exists. Do not need to create.' % VOMUN_PATH)
+    else:
         print('  [*] Error creating %s' % VOMUN_PATH)
         raise libs.errors.InstallError(
                      'Please check your file permissions for %s' % HOME)
-    else:
-        print('  [*] %s already exists. Do not need to create.' % VOMUN_PATH)
 
 try:
     print(' [*] Making ~/.vomun/keys/')
     os.mkdir(KEYS_PATH, 0700)
 except OSError as error:
-    if error.errno != 17:
+    if error.errno == 17:
+        print('  [*] %s already exists. Do not need to create.' % KEYS_PATH)
+    else:
         print('  [*] Error creating %s' % KEYS_PATH)
         raise libs.errors.InstallError(
                 '      Please check your file permissions on %s' % VOMUN_PATH)
-    else:
-        print('  [*] %s already exists. Do not need to create.' % KEYS_PATH)
         
 ## Key setup
 # Generate 2048 bit node key
