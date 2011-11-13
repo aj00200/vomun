@@ -90,16 +90,22 @@ h1:hover {
     margin: 5px;
     display: block;
     min-height: 3em;
-    border-radius: 10px;
+    border-radius: 5px;
     border-right: 1px solid gray;
-    border-left: 10px solid #cef5ad;
+    border-left: 10px solid #74e600;
     padding: 10px 5px 10px 5px;
 }
+.post:hover {
+    border-left: 10px solid #98f23d;
+}
 .mention {
-    border-left: 10px solid #f5adc3;
+    border-left: 10px solid #df00f4;
+}
+.mention:hover {
+    border-left: 10px solid #ef3c7b;
 }
 .self {
-    border-left: 10px solid rgb(86,145,254);
+    border-left: 10px solid #1924b1;
 }
 .hash {
     color: gray;
@@ -130,10 +136,26 @@ textarea {
 }
 input[type="submit"] {
     float: right;
+    margin: 1px;
 }
 /* Styles */
 #nav a {
     color: orange;
+}
+input[type="submit"] {
+    background: blue;
+    background-color: #1924b1;
+    border: none;
+    color: white;
+    
+    border-radius: 5px;
+    padding: 5px;
+    width: 17ex;
+}
+input[type="submit"]:hover {
+    text-shadow: 0 0 1px;
+    background-color: #4c57d8;
+    background: -moz-radial-gradient(#4c57d8, #1924b1);
 }
 '''
 
@@ -143,7 +165,7 @@ post_controls = '''
 
 '''
 post = '''
-      <div class="post">
+  <div class="post">
 	<div class="postcontent">
 %s
 	  <span class="user">{user}</span> - {body}
@@ -153,7 +175,7 @@ post = '''
       </div>
 ''' % post_controls
 mention = '''
-      <div class="post mention">
+  <div class="post mention">
 	<div class="postcontent">
 %s
 	  <span class="user">{user}</span> - {body}
@@ -164,7 +186,7 @@ mention = '''
 ''' % post_controls
 
 self_post = '''
-      <div class="post self">
+  <div class="post self">
 	<div class="postcontent">
 %s
 	  <span class="user">{user}</span> - {body}
