@@ -9,7 +9,7 @@ def open(url):
     if platform_name == 'Windows':
         os.system('start %s' % url)
     elif platform_name == 'Darwin':
-        os.system('safari %s' % url)
+        os.system('open %s' % url)
     elif os == 'Linux':
         os.system('firefox %s' % url)
     else:
