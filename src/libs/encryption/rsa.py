@@ -36,6 +36,8 @@ class Encryption(object):
 def generate_key(key_length = 2048):
     '''Generate an RSA key of the given key length.'''
     new_key = Crypto.PublicKey.RSA.generate(key_length)
+    # TODO: store this key
+    return new_key
 
 def load_key(sha256):
     '''Load the key from the KEY_PATH folder. Keys are stored by their sha256
@@ -54,7 +56,6 @@ def load_key(sha256):
         
 def save_key(sha256):
     '''Save a key we have the sha256 hash of to the KEY_PATH folder.'''
-    # TODO: only hash the public key
     try:
         key_data = keys[sha256].exportKey()
         key_file = open(KEY_PATH % sha256, 'w')
@@ -65,9 +66,8 @@ def save_key(sha256):
         
 def import_key(keydata):
     '''Import the key given in keydata.'''
-    # TODO: only hash the public key
     key = Crypto.PublicKey.RSA.importKey(keydata)
-    sha256 = hashlib.sha256(key.exportKey())
+    sha256 = hashlib.sha256(key.publickey().exportKey())
     keys[sha256] = key
     
     save_key(sha256)
