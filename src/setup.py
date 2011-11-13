@@ -4,11 +4,13 @@ print('''
 == Project Vomun ==
 ''')
 import os
+import hashlib
 import libs.errors
 
 
 try:
     import Crypto
+    import Crypto.PublicKey.RSA
 except ImportError:
     raise libs.errors.DependancyError('''PyCrypto is required to use Anon+
         Get it for Linux at https://www.dlitz.net/software/pycrypto/
@@ -55,17 +57,20 @@ except OSError as error:
         
 ## Key setup
 # Generate 2048 bit node key
+keys = {}
 print('[*] Setting up encryption keys')
 print(' [*] Generating a 2048 bit node key')
 print('     this could take a while...')
 
 # ####################################
-# TODO: Actually generate the key here
+# TODO: do non-symbolic key generation
 # ####################################
-fingerprint = '0xWIN'
+keys['nodekey'] = Crypto.PublicKey.RSA.generate(2048)
+keys['nodekey'].hash = hashlib.sha256(
+        keys['nodekey'].publickey().exportKey()).hexdigest()
 
 print('  [*] Done. Key fingerprint:')
-print('      %s' % fingerprint)
+print('      %s' % keys['nodekey'].hash)
 
 
 # Generate 2048 bit identity key
@@ -73,12 +78,14 @@ print(' [*] Generating a 2048 bit identity key')
 print('     this could take a while...')
 
 # ####################################
-# TODO: Actually generate the key here
+# TODO: do non-symbolic key generation
 # ####################################
-idfingerprint = '0xTHE GAME'
+keys['userkey'] = Crypto.PublicKey.RSA.generate(2048)
+keys['userkey'].hash = hashlib.sha256(
+        keys['userkey'].publickey().exportKey()).hexdigest()
 
 print('  [*] Done. Key fingerprint:')
-print('      %s' % idfingerprint)
+print('      %s' % keys['userkey'].hash)
 
 
 ## Configuration
@@ -103,8 +110,8 @@ template = '''{
 
 config = template % (KEYS_PATH.replace('\\', '\\\\'),
                      VOMUN_PATH.replace('\\', '\\\\'),
-                     fingerprint,
-                     idfingerprint,
+                     keys['nodekey'].hash,
+                     keys['userkey'].hash,
                      USER_NAME
                     )
 
