@@ -10,10 +10,10 @@ import libs.errors
 try:
     import Crypto
 except ImportError:
-    raise libs.errors.DependancyError(
-            'https://www.dlitz.net/software/pycrypto/')
-    import libs.browser # This is probably never run
-    libs.browser.open('https://www.dlitz.net/software/pycrypto/')
+    raise libs.errors.DependancyError('''PyCrypto is required to use Anon+
+        Get it for Linux at https://www.dlitz.net/software/pycrypto/
+        Get it for Windows at http://www.voidspace.org.uk/python/modules.shtml#pycrypto
+    ''')
     
 # Check PyCrpyto version basics - require v2.1.x or higher
 if Crypto.version_info[0] < 2 or Crypto.version_info[1] < 1:
