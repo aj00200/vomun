@@ -27,7 +27,7 @@ if Crypto.version_info[0] < 2 or Crypto.version_info[1] < 1:
 print('[*] Preparing for setup...')
 HOME = os.path.expanduser('~')
 VOMUN_PATH = os.path.join(HOME, '.vomun')
-KEYS_PATH = os.path.join(VOMUN_PATH, 'keys')
+KEYS_PATH = os.path.join(VOMUN_PATH, 'keys.json')
 CONFIG_PATH = os.path.join(VOMUN_PATH, 'config.json')
 
 USER_NAME = raw_input('Pick a user name: ')
@@ -44,17 +44,6 @@ except OSError as error:
         raise libs.errors.InstallError(
                      'Please check your file permissions for %s' % HOME)
 
-try:
-    print(' [*] Making ~/.vomun/keys/')
-    os.mkdir(KEYS_PATH, 0700)
-except OSError as error:
-    if error.errno == 17:
-        print('  [*] %s already exists. Do not need to create.' % KEYS_PATH)
-    else:
-        print('  [*] Error creating %s' % KEYS_PATH)
-        raise libs.errors.InstallError(
-                '      Please check your file permissions on %s' % VOMUN_PATH)
-        
 ## Key setup
 # Generate 2048 bit node key
 keys = {}
