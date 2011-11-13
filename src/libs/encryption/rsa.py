@@ -3,6 +3,7 @@ other encryption algorithms.
 '''
 import Crypto.PublicKey.RSA
 import hashlib
+import json
 import libs.config
 
 KEY_PATH = libs.globals.global_vars['config']['keydir'] + '%s.key'
@@ -36,7 +37,9 @@ class Encryption(object):
 def generate_key(key_length = 2048):
     '''Generate an RSA key of the given key length.'''
     new_key = Crypto.PublicKey.RSA.generate(key_length)
-    # TODO: store this key
+    sha256 = hashlib.sha256(new_key.publickey().exportKey()).hexdigest()
+    keys[sha256] = new_key
+    save_key(sha256)
     return new_key
 
 def load_key(sha256):
