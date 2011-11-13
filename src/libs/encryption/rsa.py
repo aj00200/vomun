@@ -65,8 +65,15 @@ def save_key(sha256):
         
 def import_key(keydata):
     '''Import the key given in keydata.'''
-    return 'Key importing not ready.'
+    # TODO: only hash the public key
+    key = Crypto.PublicKey.RSA.importKey(keydata)
+    sha256 = hashlib.sha256(key.exportKey())
+    keys[sha256] = key
+    
+    save_key(sha256)
+    return True
         
-def export_key(keyid):
-    '''Export the key with the given key ID'''
+def export_key(keyid, secret = False):
+    '''Export the key with the given key ID. If `secret` is set to True, the
+    entire key is exported. Otherwise, only the public key is exported.'''
     return 'Waiting for encryption to work.'
