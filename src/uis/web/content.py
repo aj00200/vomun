@@ -107,6 +107,9 @@ h1:hover {
 .self {
     border-left: 10px solid #1924b1;
 }
+.self:hover {
+    border-left: 10px solid #2f3584;
+}
 .hash {
     color: gray;
     font-family: monospace;
