@@ -6,7 +6,7 @@ import hashlib
 import json
 import libs.config
 
-KEY_PATH = libs.globals.global_vars['config']['keydir'] + '%s.key'
+KEY_PATH = libs.globals.global_vars['config']['keyfile']
 keys = {}
 
 class Encryption(object):
@@ -42,30 +42,40 @@ def generate_key(key_length = 2048):
     save_key(sha256)
     return new_key
 
-def load_key(sha256):
+def load_keys(sha256):
     '''Load the key from the KEY_PATH folder. Keys are stored by their sha256
     hash to prevent modification.'''
     # TODO: only hash the public key
     try:
-        key_file = open(KEY_PATH % sha256, 'r')
+        key_file = open(KEY_PATH, 'r')
         key_data = key_file.read()
         key_file.close()
-        if sha256 == hashlib.sha256(key_data).hexdigest():
-            keys[sha256] = Crypto.PublicKey.RSA.importKey(key_data)
-        else:
-            print('The key appears to be corrupt or modified.')
+
+        keys = json.loads(key_data)
     except IOError:
         print('Key file, %s, could not be loaded.' % sha256)
         
-def save_key(sha256):
-    '''Save a key we have the sha256 hash of to the KEY_PATH folder.'''
+def save_keys():
+    '''Save all keys to ~/.vomun/keys.json'''
+    # Make a backup first, keys.json.bak
     try:
-        key_data = keys[sha256].exportKey()
-        key_file = open(KEY_PATH % sha256, 'w')
-        key_file.write(key_data)
-        key_file.close()
+        old_file = open(KEY_PATH, 'r')
+        old_contents = old_file.read()
+        old_file.close()
+        
+        backup_file = open(KEY_PATH + '.bak', 'w')
+        backup_file.write(old_contents)
+        backup_file.close()
     except IOError:
-        print('Key file, %s, could not be written.' % sha256)
+        print('Could not make backup of key file.')
+        
+    # Write the new data, keys.json
+    try:
+        new_file = open(KEY_PATH, 'w')
+        new_file.write(json.dumps(keys, indent = 4))
+        new_file.close()
+    except IOError:
+        print('Could not write updated key file.')
         
 def import_key(keydata):
     '''Import the key given in keydata.'''
@@ -73,7 +83,7 @@ def import_key(keydata):
     sha256 = hashlib.sha256(key.publickey().exportKey())
     keys[sha256] = key
     
-    save_key(sha256)
+    save_keys()
     return True
         
 def export_key(keyid, secret = False):

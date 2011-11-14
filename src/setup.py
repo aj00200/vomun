@@ -4,6 +4,7 @@ print('''
 == Project Vomun ==
 ''')
 import os
+import json
 import hashlib
 import libs.errors
 
@@ -80,29 +81,13 @@ print('      %s' % keys['userkey'].hash)
 ## Configuration
 # Generate the contents
 print('[*] Generating the config file...')
-# template = '''
-# {
-#     "keydir": "{keysdir}",
-#     "vomundir": "{vomundir}",
-#     "nodekey": "{nodekey}",
-#     "userkey": "{userkey}",
-#     "username": "{username}"
-# }
-# '''
-template = '''{
-    "keydir": "%s",
-    "vomundir": "%s",
-    "nodekey": "%s",
-    "userkey": "%s",
-    "username": "%s"
-}'''
-
-config = template % (KEYS_PATH.replace('\\', '\\\\'),
-                     VOMUN_PATH.replace('\\', '\\\\'),
-                     keys['nodekey'].hash,
-                     keys['userkey'].hash,
-                     USER_NAME
-                    )
+config = json.dumps({
+    'keyfile': KEYS_PATH.replace('\\', '\\\\'),
+    'vomundir': VOMUN_PATH.replace('\\', '\\\\'),
+    'nodekey': keys['nodekey'].hash,
+    'userkey': keys['userkey'].hash,
+    'username': USER_NAME
+}, indent = 4)
 
 try:
     print(' [*] Writing the config file.')
