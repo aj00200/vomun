@@ -39,7 +39,7 @@ def generate_key(key_length = 2048):
     new_key = Crypto.PublicKey.RSA.generate(key_length)
     sha256 = hashlib.sha256(new_key.publickey().exportKey()).hexdigest()
     keys[sha256] = new_key
-    save_key(sha256)
+    save_keys()
     return new_key
 
 def load_keys(sha256):
@@ -70,9 +70,13 @@ def save_keys():
         print('Could not make backup of key file.')
         
     # Write the new data, keys.json
+    key_data = {}
+    for key in keys:
+        key_data[key] = keys[key].exportKey()
+        
     try:
         new_file = open(KEY_PATH, 'w')
-        new_file.write(json.dumps(keys, indent = 4))
+        new_file.write(json.dumps(key_data, indent = 4))
         new_file.close()
     except IOError:
         print('Could not write updated key file.')

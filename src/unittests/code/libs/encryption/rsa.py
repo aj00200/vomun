@@ -24,8 +24,8 @@ class TestPyCryptoRSA(unittest.TestCase):
 class TestLibsEncryptionRSA(unittest.TestCase):
     def test_functions_exist(self):
         self.assertIsNotNone(libs.encryption.rsa.generate_key)
-        self.assertIsNotNone(libs.encryption.rsa.load_key)
-        self.assertIsNotNone(libs.encryption.rsa.save_key)
+        self.assertIsNotNone(libs.encryption.rsa.load_keys)
+        self.assertIsNotNone(libs.encryption.rsa.save_keys)
         self.assertIsNotNone(libs.encryption.rsa.import_key)
         self.assertIsNotNone(libs.encryption.rsa.export_key)
         
