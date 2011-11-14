@@ -5,34 +5,34 @@ import json
 import libs.globals
 from api.functions import register_with_api
 
-configpath = os.path.expanduser("~/.vomun/config.json")
+CONFIG_PATH = os.path.expanduser("~/.vomun/config.json")
 
 
 def open_config():
+    '''Open the configuration file from ~/.vomun/config.json'''
     try:
-        configfile = open(configpath,"r+")
+        configfile = open(CONFIG_PATH,"r+")
     except IOError:
-        defaultConfig = {   
+        default_config = {   
             'vomundir': os.getenv('HOME') + '/.vomun/',
             'gnupgdir': os.getenv('HOME') + '/.vomun/gnupg/',
             'nodekey': ''
         }
-        configfile = open(configpath,"a")
-        configfile.write(json.dumps(defaultConfig,indent = 4))
+        configfile = open(CONFIG_PATH, 'a')
+        configfile.write(json.dumps(default_config, indent = 4))
         configfile.flush()
         configfile.close()
-        configfile = open(configpath,"r+")
+        configfile = open(CONFIG_PATH, 'r+')
     return configfile
 
 
-configfile = open_config()
+config_file = open_config()
 
 @register_with_api
 def load_config():
     '''Load the configuration file'''
-    import libs
-    libs.globals.global_vars['config'] = json.loads(configfile.read())
-    configfile.seek(0) # return read/write position to beginning of the file
+    libs.globals.global_vars['config'] = json.loads(config_file.read())
+    config_file.seek(0) # return read/write position to beginning of the file
 
 @register_with_api
 def get_config():
@@ -43,6 +43,7 @@ def get_config():
 @register_with_api
 def save_config():
     '''Write the configuration file to the hard disk'''
-    configfile.write(json.dumps(libs.globals.global_vars["config"],indent = 4))
+    config_file.write(json.dumps(libs.globals.global_vars['config'],
+                                 indent = 4))
 
 load_config()

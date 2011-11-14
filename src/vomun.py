@@ -2,7 +2,6 @@
 '''Start the program. Load segments of the program that need to be started and
 run them.'''
 import time
-import os
 
 import libs.globals
 
@@ -41,7 +40,7 @@ if __name__ == '__main__':
     #consoleO = console()
     #libs.threadmanager.register(consoleO)
     #consoleO.start()
-    
+
     # Load and prepare our list of friends
     import libs.friends as friends
     friends.load_friends()
@@ -57,11 +56,9 @@ if __name__ == '__main__':
     libs.browser.open('http://localhost:7777/')
     
     # Start the API
-
-
     ## main loop
     while libs.globals.global_vars['running']:
-        time.sleep(0.5)
+        time.sleep(1)
     
     ## cleanup
     libs.threadmanager.killall()
@@ -69,6 +66,5 @@ if __name__ == '__main__':
     friends.save_friends()
     libs.config.save_config()
     
-    libs.globals.global_vars['running'] = False
     exit()
 

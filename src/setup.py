@@ -4,16 +4,19 @@ print('''
 == Project Vomun ==
 ''')
 import os
+import json
+import hashlib
 import libs.errors
 
 
 try:
     import Crypto
+    import Crypto.PublicKey.RSA
 except ImportError:
-    raise libs.errors.DependancyError(
-            'https://www.dlitz.net/software/pycrypto/')
-    import libs.browser # This is probably never run
-    libs.browser.open('https://www.dlitz.net/software/pycrypto/')
+    raise libs.errors.DependancyError('''PyCrypto is required to use Anon+
+        Get it for Linux at https://www.dlitz.net/software/pycrypto/
+        Get it for Windows at http://www.voidspace.org.uk/python/modules.shtml#pycrypto
+    ''')
     
 # Check PyCrpyto version basics - require v2.1.x or higher
 if Crypto.version_info[0] < 2 or Crypto.version_info[1] < 1:
@@ -25,7 +28,7 @@ if Crypto.version_info[0] < 2 or Crypto.version_info[1] < 1:
 print('[*] Preparing for setup...')
 HOME = os.path.expanduser('~')
 VOMUN_PATH = os.path.join(HOME, '.vomun')
-KEYS_PATH = os.path.join(VOMUN_PATH, 'keys')
+KEYS_PATH = os.path.join(VOMUN_PATH, 'keys.json')
 CONFIG_PATH = os.path.join(VOMUN_PATH, 'config.json')
 
 USER_NAME = raw_input('Pick a user name: ')
@@ -35,37 +38,29 @@ try:
     print(' [*] Making ~/.vomun/')
     os.mkdir(VOMUN_PATH, 0711)
 except OSError as error:
-    if error.errno != 17:
+    if error.errno == 17:
+        print('  [*] %s already exists. Do not need to create.' % VOMUN_PATH)
+    else:
         print('  [*] Error creating %s' % VOMUN_PATH)
         raise libs.errors.InstallError(
                      'Please check your file permissions for %s' % HOME)
-    else:
-        print('  [*] %s already exists. Do not need to create.' % VOMUN_PATH)
 
-try:
-    print(' [*] Making ~/.vomun/keys/')
-    os.mkdir(KEYS_PATH, 0700)
-except OSError as error:
-    if error.errno != 17:
-        print('  [*] Error creating %s' % KEYS_PATH)
-        raise libs.errors.InstallError(
-                '      Please check your file permissions on %s' % VOMUN_PATH)
-    else:
-        print('  [*] %s already exists. Do not need to create.' % KEYS_PATH)
-        
 ## Key setup
 # Generate 2048 bit node key
+keys = {}
 print('[*] Setting up encryption keys')
 print(' [*] Generating a 2048 bit node key')
 print('     this could take a while...')
 
 # ####################################
-# TODO: Actually generate the key here
+# TODO: do non-symbolic key generation
 # ####################################
-fingerprint = '0xWIN'
+keys['nodekey'] = Crypto.PublicKey.RSA.generate(2048)
+keys['nodekey'].hash = hashlib.sha256(
+        keys['nodekey'].publickey().exportKey()).hexdigest()
 
 print('  [*] Done. Key fingerprint:')
-print('      %s' % fingerprint)
+print('      %s' % keys['nodekey'].hash)
 
 
 # Generate 2048 bit identity key
@@ -73,40 +68,26 @@ print(' [*] Generating a 2048 bit identity key')
 print('     this could take a while...')
 
 # ####################################
-# TODO: Actually generate the key here
+# TODO: do non-symbolic key generation
 # ####################################
-idfingerprint = '0xTHE GAME'
+keys['userkey'] = Crypto.PublicKey.RSA.generate(2048)
+keys['userkey'].hash = hashlib.sha256(
+        keys['userkey'].publickey().exportKey()).hexdigest()
 
 print('  [*] Done. Key fingerprint:')
-print('      %s' % idfingerprint)
+print('      %s' % keys['userkey'].hash)
 
 
 ## Configuration
 # Generate the contents
 print('[*] Generating the config file...')
-# template = '''
-# {
-#     "keydir": "{keysdir}",
-#     "vomundir": "{vomundir}",
-#     "nodekey": "{nodekey}",
-#     "userkey": "{userkey}",
-#     "username": "{username}"
-# }
-# '''
-template = '''{
-    "keydir": "%s",
-    "vomundir": "%s",
-    "nodekey": "%s",
-    "userkey": "%s",
-    "username": "%s"
-}'''
-
-config = template % (KEYS_PATH.replace('\\', '\\\\'),
-                     VOMUN_PATH.replace('\\', '\\\\'),
-                     fingerprint,
-                     idfingerprint,
-                     USER_NAME
-                    )
+config = json.dumps({
+    'keyfile': KEYS_PATH.replace('\\', '\\\\'),
+    'vomundir': VOMUN_PATH.replace('\\', '\\\\'),
+    'nodekey': keys['nodekey'].hash,
+    'userkey': keys['userkey'].hash,
+    'username': USER_NAME
+}, indent = 4)
 
 try:
     print(' [*] Writing the config file.')
