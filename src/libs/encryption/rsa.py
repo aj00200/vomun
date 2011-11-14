@@ -51,7 +51,10 @@ def load_keys(sha256):
         key_data = key_file.read()
         key_file.close()
 
-        keys = json.loads(key_data)
+        key_data = json.loads(key_data)
+        for key in key_data:
+            keys[key] = Crypto.PublicKey.RSA.importKey(key_data[key])
+            
     except IOError:
         print('Key file, %s, could not be loaded.' % sha256)
         
