@@ -150,7 +150,7 @@ class Handler(libs.events.Handler):
                     title = 'Friend added',
                     pagetitle = 'Friend added',
                     main = 'Your friend has been added.<br />' +
-                        '<br />Key: %s' % result.fingerprints[0],
+                        '<br />Key: %s' % result,
                     sidecontent = self.__friends2html()
             ))
         elif path == '/keys.html':
