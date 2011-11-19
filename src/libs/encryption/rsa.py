@@ -20,7 +20,7 @@ class Encryption(object):
         
     def encrypt(self, data):
         '''Encrypt `data` with this encryption algorithm.'''
-        return keys[self.dest].encrypt(data)
+        return keys[self.dest].encrypt(data, '')
 
     def decrypt(self, data):
         '''Decrypt `data` with this encryption algorithm.'''
