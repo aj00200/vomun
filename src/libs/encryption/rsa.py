@@ -1,5 +1,7 @@
 '''Holds common encryption functions/classes which will probably be used by
 other encryption algorithms.
+WARNING: This code is not secure. We need PKCS#1 padding to prevent attacks
+against RSA!!!!
 '''
 import Crypto.PublicKey.RSA
 import hashlib

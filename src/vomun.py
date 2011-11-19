@@ -16,14 +16,12 @@ import libs.logs
 import libs.config
 
 print('''
-    == Warning! ==
-This is a beta release
-of Anon+, which means
-that you should not
-trust it to share
-important info
-as it is not
-secure yet
+     == Warning! ==
+This is an insecure beta!
+This software has various
+known weaknesses. Please,
+do not depend on it to be
+secure! Thank you, ~~Devs
 ''')
 
 ## Startup

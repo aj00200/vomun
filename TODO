@@ -34,6 +34,7 @@ aj00200:
      - Simpler
      - JS loader for comments
      - Chat mode (press enter to send)
+ [N!] Make the crypto code secure! Adding padding to RSA~
 
 mou:
  [!]  Create a *.anonplus files with all informations to easy add friends
