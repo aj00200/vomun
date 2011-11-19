@@ -22,11 +22,16 @@ class Encryption(object):
         
     def encrypt(self, data):
         '''Encrypt `data` with this encryption algorithm.'''
-        return keys[self.dest].encrypt(data, '')
+        print(' * Encrypting: %s' % data)
+        edata = keys[self.dest].encrypt(data, '')
+        print(' * Type encry: %s' % type(edata))
+        print(' * Encrypted : %s' % edata[0])
+        return edata[0]
 
     def decrypt(self, data):
         '''Decrypt `data` with this encryption algorithm.'''
-        return keys[self.source].decrypt(data)
+        print(' * Decrypting: %s' % data)
+        return keys[self.source].decrypt(data[0])
 
     def sign(self, data):
         '''Create a RSA signature for the given data'''
