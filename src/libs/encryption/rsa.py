@@ -100,3 +100,6 @@ def export_key(hash, secret = False):
         return keys[hash].exportKey()
     else:
         return keys[hash].publickey().exportKey()
+
+## Get ready
+load_keys()
