@@ -140,7 +140,7 @@ class Handler(libs.events.Handler):
                     ip = item[1]
                     
             # Add the friend object
-            libs.friends.add_friend(result.fingerprints[0], ip = ip,
+            libs.friends.add_friend(result, ip = ip,
                                     port = 1337, name = name)
                 
             # Notify the user of success

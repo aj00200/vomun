@@ -91,7 +91,7 @@ def import_key(keydata):
     keys[sha256] = key
     
     save_keys()
-    return True
+    return sha256
         
 def export_key(hash, secret = False):
     '''Export the key with the given key ID. If `secret` is set to True, the
