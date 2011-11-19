@@ -87,7 +87,7 @@ def save_keys():
 def import_key(keydata):
     '''Import the key given in keydata.'''
     key = Crypto.PublicKey.RSA.importKey(keydata)
-    sha256 = hashlib.sha256(key.publickey().exportKey())
+    sha256 = hashlib.sha256(key.publickey().exportKey()).hexdigest()
     keys[sha256] = key
     
     save_keys()
