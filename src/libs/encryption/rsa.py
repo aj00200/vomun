@@ -20,11 +20,11 @@ class Encryption(object):
         
     def encrypt(self, data):
         '''Encrypt `data` with this encryption algorithm.'''
-        return data
+        return keys[self.dest].encrypt(data)
 
     def decrypt(self, data):
         '''Decrypt `data` with this encryption algorithm.'''
-        return data
+        return keys[self.source].decrypt(data)
 
     def sign(self, data):
         '''Create a RSA signature for the given data'''
@@ -42,7 +42,7 @@ def generate_key(key_length = 2048):
     save_keys()
     return new_key
 
-def load_keys(sha256):
+def load_keys():
     '''Load the key from the KEY_PATH folder. Keys are stored by their sha256
     hash to prevent modification.'''
     # TODO: only hash the public key
@@ -93,7 +93,10 @@ def import_key(keydata):
     save_keys()
     return True
         
-def export_key(keyid, secret = False):
+def export_key(hash, secret = False):
     '''Export the key with the given key ID. If `secret` is set to True, the
     entire key is exported. Otherwise, only the public key is exported.'''
-    return 'Waiting for encryption to work.'
+    if secret:
+        return keys[hash].exportKey()
+    else:
+        return keys[hash].publickey().exportKey()
