@@ -77,6 +77,20 @@ keys['userkey'].hash = hashlib.sha256(
 print('  [*] Done. Key fingerprint:')
 print('      %s' % keys['userkey'].hash)
 
+# Write keys
+print('[*] Writing keys to keys.json')
+keys_by_hash = {
+    keys['nodekey'].hash: keys['nodekey'].exportKey(),
+    keys['userkey'].hash: keys['userkey'].exportKey()
+}
+try:
+    key_file = open(KEYS_PATH, 'w')
+    key_file.write(json.dumps(keys_by_hash, indent = 4))
+    key_file.close()
+except IOError:
+    print('  [*] Error writing %s. Check file permissions.' % KEY_PATH)
+    raise libs.errors.InstallError('Could not write to %s.' % KEY_PATH)
+
 
 ## Configuration
 # Generate the contents
@@ -95,7 +109,7 @@ try:
     config_file.write(config)
     config_file.close()
 except IOError as error:
-    print('  [*] Error writing %s. Check file permissions' % CONFIG_PATH)
+    print('  [*] Error writing %s. Check file permissions.' % CONFIG_PATH)
     raise libs.errors.InstallError('Could not write to %s.' % CONFIG_PATH)
 
 friendlistpath = os.path.expanduser('~/.vomun/friends.json')
