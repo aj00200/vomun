@@ -147,7 +147,7 @@ class Friend:
         #if not self.connected and not system:
         #    print 'not connected: Message discarded. Message was: %s' % message
         #    return
-        message = str(self.encryption.encrypt(data))
+        message = self.encryption.encrypt(data)
         print('Encrypted: %s' % message)
         self.wconnection.send(message)
 
