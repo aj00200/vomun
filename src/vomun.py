@@ -27,9 +27,18 @@ secure! Thank you, ~~Devs
 ## Startup
 if __name__ == '__main__':
     # Create the API Server. Used by external Applications.
-    import api.server
-    api.server.start()
+    #import api.server
+    #api.server.start()
     
+    import libs.morado.morado
+    libs.morado.morado.start()
+
+    # Create the console. Later to be replaced with an extenal app
+    #from libs.console import console
+    #consoleO = console()
+    #libs.threadmanager.register(consoleO)
+    #consoleO.start()
+
     # Load and prepare our list of friends
     import libs.friends as friends
     friends.load_friends()

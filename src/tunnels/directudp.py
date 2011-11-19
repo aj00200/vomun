@@ -8,6 +8,14 @@ from libs.packets import make_packet
 from libs.construct import *
 
 connections = {}
+
+class Tunnel(tunnels.base.Tunnel):
+    '''UDP Tunnel class'''
+    def connect(self, node):
+        self.connection = Connection(node)
+        
+    def disconnect(self):
+        self.connection.disconnect()
     
 class Connection(tunnels.base.Connection):
     '''UDP "connection" to a peer'''
@@ -23,6 +31,10 @@ class Connection(tunnels.base.Connection):
     def send(self, message):
         print('Sending: ' + message)
         self.sock.send(message)
+        
+    def disconnect(self):
+        '''Do nothing, UDP does not need to close any connections.'''
+        pass
 
     
     
@@ -47,7 +59,8 @@ class Listener(libs.threadmanager.Thread):
                 friend = libs.friends.get_friend_by_ip(ip)
                 friend.connection = self.sock
                 friend.data += data[0] # Send data to the Friend object
-                print('recv: ' + data[0])
+                print ('recv: %s' % data[0])
+                print('type: %s' % str(type(data[0])))
                 friend.parse_packets()
                 friend.connection = self.sock
             except socket.error as error:
