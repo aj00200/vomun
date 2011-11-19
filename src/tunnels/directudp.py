@@ -9,7 +9,7 @@ from libs.construct import *
 
 connections = {}
 
-class Tunnel(tunnels.base):
+class Tunnel(tunnels.base.Tunnel):
     '''UDP Tunnel class'''
     def connect(self, node):
         self.connection = Connection(node)
@@ -60,6 +60,7 @@ class Listener(libs.threadmanager.Thread):
                 friend.connection = self.sock
                 friend.data += data[0] # Send data to the Friend object
                 print('recv: ' + data[0])
+                print('type: ' + type(data[0]))
                 friend.parse_packets()
                 friend.connection = self.sock
             except socket.error as error:
