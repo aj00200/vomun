@@ -3,8 +3,8 @@
 global_vars = {
     'running': True,
     'anon+': {
-        'VERSION': 'v0.0.1',
-        'BUILD': 3,
+        'VERSION': 'v0.1.0',
+        'BUILD': 4,
     }
 }
 
