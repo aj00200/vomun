@@ -15,8 +15,8 @@ class Handler(libs.events.Handler):
     def __init__(self):
         self.posts = [
             Post('The Devs',
-                 '5d931b7da1ebca177dea980c4c6b9676653f567730fa9831e82542ff04273356',
-                 'Welcome to Anon+.\nJust a warning, this system is not completely secure at this time. Messages are not encrypted and you will need to refresh this page to see new messages.'
+                 'def688dad01ddad6cdbcc9e362c9231f47dbffc4b9629e5ca844bb52731105ba',
+                 'Welcome to Anon+.\nJust a warning, this system is not completely secure but it is probably better than the alternatives.'
             )
         ]
         
