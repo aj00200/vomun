@@ -31,7 +31,9 @@ class Encryption(object):
     def decrypt(self, data):
         '''Decrypt `data` with this encryption algorithm.'''
         print(' * Decrypting: %s' % data)
-        return keys[self.source].decrypt(data[0])
+        ddata = keys[self.source].decrypt(data[0])        
+        print(' * Decrypted : %s' % ddata)
+        return ddata
 
     def sign(self, data):
         '''Create a RSA signature for the given data'''
