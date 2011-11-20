@@ -24,15 +24,16 @@ class Encryption(object):
         '''Encrypt `data` with this encryption algorithm.'''
         print(' * Encrypting: %s' % data)
         edata = keys[self.dest].encrypt(data, '')
-        print(' * Type encry: %s' % type(edata))
-        print(' * Encrypted : %s' % edata[0])
+        if str(type(edata)) == "<type 'tuple'>":
+            print('  * edata is a tuple:')
+            print('  * Encr tuple: %s' % str(edata))
+        print('')
+        print(' * edata[0]  : %s' % edata[0])
         return edata[0]
 
     def decrypt(self, data):
         '''Decrypt `data` with this encryption algorithm.'''
-        print(' * Decrypting: %s' % data)
-        ddata = keys[self.source].decrypt(data[0])        
-        print(' * Decrypted : %s' % ddata)
+        ddata = keys[self.source].decrypt(data)
         return ddata
 
     def sign(self, data):
