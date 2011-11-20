@@ -4,8 +4,7 @@ it into a list of Friend objects.
 import json
 import os.path
 import time
-
-import tunnels.directudp as directudp
+from tunnels import directudp
 from libs.globals import global_vars
 import libs.encryption.rsa
 from libs.packets import parse_packets, packets_by_id, make_packet
@@ -135,7 +134,8 @@ class Friend:
 
     def connect(self):
         '''Connect to the friend'''
-        self.wconnection = directudp.Connection(self)
+        self.wconnection = directudp.Tunnel(self)
+        self.wconnection.connect()
         #self.connected = True
 
     def send(self, data, system=0):

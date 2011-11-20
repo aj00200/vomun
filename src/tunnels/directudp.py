@@ -10,12 +10,18 @@ from libs.construct import *
 connections = {}
 
 class Tunnel(tunnels.base.Tunnel):
-    '''UDP Tunnel class'''
-    def connect(self, node):
+    '''UDP Tunnel class. No difference because UDP is simple.'''
+    def __init__(self, node):
         self.connection = Connection(node)
+        
+    def connect(self):
+        pass # No need to SYN with UDP
         
     def disconnect(self):
         self.connection.disconnect()
+        
+    def send(self, message):
+        self.connection.send(message)
     
 class Connection(tunnels.base.Connection):
     '''UDP "connection" to a peer'''
