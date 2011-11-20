@@ -22,13 +22,7 @@ class Encryption(object):
         
     def encrypt(self, data):
         '''Encrypt `data` with this encryption algorithm.'''
-        print(' * Encrypting: %s' % data)
         edata = keys[self.dest].encrypt(data, '')
-        if str(type(edata)) == "<type 'tuple'>":
-            print('  * edata is a tuple:')
-            print('  * Encr tuple: %s' % str(edata))
-        print('')
-        print(' * edata[0]  : %s' % edata[0])
         return edata[0]
 
     def decrypt(self, data):

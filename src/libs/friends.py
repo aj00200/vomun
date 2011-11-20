@@ -148,7 +148,6 @@ class Friend:
         #    print 'not connected: Message discarded. Message was: %s' % message
         #    return
         message = self.encryption.encrypt(data)
-        print('Encrypted: %s' % message)
         self.wconnection.send(message)
 
     def send_message(self, message):
