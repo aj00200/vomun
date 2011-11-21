@@ -53,11 +53,14 @@ print(' [*] Generating a 2048 bit node key')
 print('     this could take a while...')
 
 # ####################################
-# TODO: do non-symbolic key generation
+# Generate the node-key for the user
 # ####################################
-keys['nodekey'] = Crypto.PublicKey.RSA.generate(2048)
-keys['nodekey'].hash = hashlib.sha256(
-        keys['nodekey'].publickey().exportKey()).hexdigest()
+try:
+    keys['nodekey'] = Crypto.PublicKey.RSA.generate(2048)
+    keys['nodekey'].hash = hashlib.sha256(
+            keys['nodekey'].publickey().exportKey()).hexdigest()
+except AttributeError:
+    pass # Waiting for input from the PyCrypto people
 
 print('  [*] Done. Key fingerprint:')
 print('      %s' % keys['nodekey'].hash)
@@ -68,7 +71,7 @@ print(' [*] Generating a 2048 bit identity key')
 print('     this could take a while...')
 
 # ####################################
-# TODO: do non-symbolic key generation
+# Generate the user-key for the user
 # ####################################
 keys['userkey'] = Crypto.PublicKey.RSA.generate(2048)
 keys['userkey'].hash = hashlib.sha256(
