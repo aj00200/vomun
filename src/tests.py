@@ -8,7 +8,9 @@ from unittests.code.libs.config import *
 from unittests.code.libs.errors import *
 from unittests.code.libs.friends import *
 from unittests.code.libs.globals import *
+from unittests.code.libs.browser import *
 from unittests.code.libs.encryption.rsa import *
+from unittests.code.libs.encryption.base import *
 
 # Load additional tests
 if '--config' in sys.argv:

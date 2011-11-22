@@ -26,3 +26,8 @@ class RequiredClasses(unittest.TestCase):
         self.assertIsNotNone(libs.errors.UsageError)
         self.assertTrue(issubclass(libs.errors.UsageError,
                                    libs.errors.AnonError))
+
+    def test_InstallError(self):
+        self.assertIsNotNone(libs.errors.InstallError)
+        self.assertTrue(issubclass(libs.errors.InstallError,
+                                   libs.errors.AnonError))

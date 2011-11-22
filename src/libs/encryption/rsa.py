@@ -49,7 +49,6 @@ def generate_key(key_length = 2048):
 def load_keys():
     '''Load the key from the KEY_PATH folder. Keys are stored by their sha256
     hash to prevent modification.'''
-    # TODO: only hash the public key
     try:
         key_file = open(KEY_PATH, 'r')
         key_data = key_file.read()
