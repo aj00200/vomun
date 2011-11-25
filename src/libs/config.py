@@ -15,7 +15,6 @@ def open_config():
     except IOError:
         default_config = {   
             'vomundir': os.getenv('HOME') + '/.vomun/',
-            'gnupgdir': os.getenv('HOME') + '/.vomun/gnupg/',
             'nodekey': ''
         }
         configfile = open(CONFIG_PATH, 'a')

@@ -53,6 +53,10 @@ if __name__ == '__main__':
     
     libs.browser.open('http://localhost:7777/')
     
+    # Start the storage database
+    import libs.storage.manager
+    libs.storage.manager.start()
+    
     # Start the API
     ## main loop
     while libs.globals.global_vars['running']:

@@ -57,9 +57,13 @@ class StorageDB(libs.events.Handler):
             self.uuks[block] = db_json[block]
         
     # Event methods
-    def got_message(self, data):
-        self.add_uuk(Block(data))
-        
+    def got_message(self, packet):
+        message = packet.message
+        self.add_uuk(Block(message))
+        out_json = {}
+        for block in self.uuks.values():
+            out_json[block.hash] = block.data
+        print(json.dumps(out_json, indent = 2))        
     def got_request(self, query):
         self.search(query)
         
