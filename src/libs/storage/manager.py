@@ -2,6 +2,7 @@
 information that has not been requested in a long time.
 TODO: decide on how to store the data long term (persistent storage).
 '''
+import json
 import hashlib
 import libs.errors
 import libs.events
@@ -35,6 +36,14 @@ class StorageDB(libs.events.Handler):
         elif query.type == 'USK':
             if query.id in self.usks:
                 return self.usks[query.id]
+            
+    def load(self, path):
+        '''Load the database from a storage file.'''
+        pass
+        
+    def save(self, path):
+        '''Save the database to a storage file.'''
+        pass
         
     # Event methods
     def got_message(self, data):
@@ -48,3 +57,8 @@ class Query(object):
         self.type = blocktype
         self.id = id
         
+
+def start():
+    '''Create the storage database.'''
+    database = StorageDB()
+    libs.events.register_handler(database)
