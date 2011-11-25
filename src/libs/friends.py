@@ -8,7 +8,7 @@ from tunnels import directudp
 from libs.globals import global_vars
 import libs.encryption.rsa
 from libs.packets import parse_packets, packets_by_id, make_packet
-from api.functions import register_with_api
+from libs.morado.functions import register_with_api
 
 
 

@@ -3,7 +3,7 @@
 import os
 import json
 import libs.globals
-from api.functions import register_with_api
+from libs.morado.functions import register_with_api
 
 CONFIG_PATH = os.path.expanduser("~/.vomun/config.json")
 
