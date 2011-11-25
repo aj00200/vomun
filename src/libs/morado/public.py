@@ -3,7 +3,7 @@ import json
 
 import sys
 
-def read(socket,size):
+def read(socket, size):
     size = int(size)
     datareturn = ""
         
@@ -18,16 +18,16 @@ def read(socket,size):
 
 
 class _Method:
-    def __init__(self,socket, funcname, *args,**kwargs):
-        self.req = self._make_request(funcname, *args,**kwargs)
+    def __init__(self, socket, funcname, *args, **kwargs):
+        self.req = self._make_request(funcname, *args, **kwargs)
         self.socket = socket
     def __call__(self):
         self.socket.send(self.req)
-        length = int(read(self.socket,4))
+        length = int(read(self.socket, 4))
 
-        return json.loads(read(self.socket,length))
+        return json.loads(read(self.socket, length))
 
-    def _make_request(self,func,*args,**kwargs):
+    def _make_request(self, func, *args, **kwargs):
 
         request = {}
         request["function"] = func
@@ -37,13 +37,13 @@ class _Method:
         js = json.dumps(request)
         print js
         size = len(js)
-        req = "%4i%s" % (size,js)
+        req = "%4i%s" % (size, js)
         return req
 
 class VomunAPI:
-    def __init__(self,server="127.0.0.1",port=9999):
+    def __init__(self, server="127.0.0.1", port=9999):
         self.socket = socket.socket()
-        self.socket.connect((server,port))
+        self.socket.connect((server, port))
 
     def __getattr__(self, name):
         # magic method dispatcher

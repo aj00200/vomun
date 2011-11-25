@@ -2,7 +2,7 @@ import asyncore
 import asynchat
 import socket
 import json
-import SocketServer
+# import SocketServer
 import traceback
 import os
 import sys
@@ -27,14 +27,14 @@ class ComplexEncoder(json.JSONEncoder):
 
 
 class APIHandler(asynchat.async_chat):
-    def __init__(self,sock):
-        asynchat.async_chat.__init__(self,sock)
+    def __init__(self, sock):
+        asynchat.async_chat.__init__(self, sock)
         self.data = 0
         self.buffer = ""
         self.size = -1
         self.set_terminator(4)
 
-    def read(self,size):
+    def read(self, size):
         size = int(size)
         datareturn = ""
         
@@ -59,9 +59,9 @@ class APIHandler(asynchat.async_chat):
             try:
                 data =  self.buffer
                 retdata = self.handle_api(data)
-                retjson = json.dumps(retdata,cls=ComplexEncoder)
+                retjson = json.dumps(retdata, cls=ComplexEncoder)
                 length = len(retjson)
-                self.push("%4i%s" % (length,retjson))
+                self.push("%4i%s" % (length, retjson))
 
                 print "api returned", retjson
                 self.data = 0
@@ -75,7 +75,7 @@ class APIHandler(asynchat.async_chat):
 
 
     
-    def handle_api(self,data):
+    def handle_api(self, data):
 
 
         request = json.loads(data)
@@ -84,7 +84,7 @@ class APIHandler(asynchat.async_chat):
 
         try:
             ret =  libs.globals.global_vars["apifunctions"][function](*args)
-            if isinstance(ret,dict):
+            if isinstance(ret, dict):
                 return ret
             else:
                 return {"returnvalue": ret} # if a function doesnt return a dict,
