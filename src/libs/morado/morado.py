@@ -1,8 +1,14 @@
 import asyncore
+import asynchat
 import socket
 import json
 import SocketServer
 import traceback
+import os
+import sys
+
+path =  os.getcwd()
+sys.path.append(path)
 
 import libs.threadmanager
 import libs.globals
@@ -20,7 +26,14 @@ class ComplexEncoder(json.JSONEncoder):
             return json.JSONEncoder.default(self, obj)
 
 
-class APIRequestHandler(SocketServer.BaseRequestHandler):
+class APIHandler(asynchat.async_chat):
+    def __init__(self,sock):
+        asynchat.async_chat.__init__(self,sock)
+        self.data = 0
+        self.buffer = ""
+        self.size = -1
+        self.set_terminator(4)
+
     def read(self,size):
         size = int(size)
         datareturn = ""
@@ -32,23 +45,32 @@ class APIRequestHandler(SocketServer.BaseRequestHandler):
                 pass
 
         return datareturn
+    
+    def collect_incoming_data(self, data):        
+        self.buffer += data
 
-
-    def handle(self):
-        size = int(self.read(4))
-        while True:
+    def found_terminator(self):
+        if self.size == -1:
+            self.size = int(self.buffer[0:4])
+            self.set_terminator(self.size)
+            self.buffer = self.buffer[5:]       #size = int(self.read(4))
+        
+        else:
             try:
-                data =  self.read(size)
+                data =  self.buffer
                 retdata = self.handle_api(data)
                 retjson = json.dumps(retdata,cls=ComplexEncoder)
                 length = len(retjson)
-                self.request.send("%4i%s" % (length,retjson))
+                self.push("%4i%s" % (length,retjson))
 
                 print "api returned", retjson
-                size = int(self.read(4))
-                print size
+                self.data = 0
+                self.buffer = ""
+                self.size = -1
+                self.set_terminator(4)
             except Exception as ex:
                 print "error", traceback.format_exc()
+                self.size = -1
 
 
 
@@ -74,10 +96,29 @@ class APIRequestHandler(SocketServer.BaseRequestHandler):
             print ex
             return {"error2": ex}
 
-class APIServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
-    pass
 
-class APIThread(libs.threadmanager.Thread):
+class APIServer(asyncore.dispatcher):
+
+    def __init__(self, host, port):
+        asyncore.dispatcher.__init__(self)
+        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.set_reuse_addr()
+        self.bind((host, port))
+        self.listen(5)
+
+    def handle_accept(self):
+        pair = self.accept()
+        if pair is None:
+            pass
+        else:
+            sock, addr = pair
+            print 'Incoming connection from %s' % repr(addr)
+            handler = APIHandler(sock)
+
+#class APIServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
+#    pass
+
+"""class APIThread(libs.threadmanager.Thread):
     def __init__(self):
         libs.threadmanager.Thread.__init__(self)
         self.server = APIServer(("0.0.0.0", 9999), APIRequestHandler)
@@ -88,17 +129,29 @@ class APIThread(libs.threadmanager.Thread):
 
     def stop(self):
         self._stop.set()
-        self.server.shutdown()
+        self.server.shutdown()"""
+
+class APIServerThead(libs.threadmanager.Thread):
+
+    def run(self):
+        libs.globals.global_vars["apiserver"] = APIServer('localhost', 9999)
+        while libs.globals.global_vars["running"]:
+            asyncore.loop(timeout = 5, count = 1)
 
 def start():
     '''Start the API interface. Create the Server object and the listener
     we use to listen for events from this interface.
     '''
-    libs.globals.global_vars["apiserver"] = APIThread()
+    """libs.globals.global_vars["apiserver"] = APIServer('localhost', 9999)
     libs.threadmanager.register(libs.globals.global_vars["apiserver"])
-    libs.globals.global_vars["apiserver"].start()
+    libs.globals.global_vars["apiserver"].start()"""
     #api.functions.register()
+    libs.globals.global_vars["APIServerThread"] = APIServerThead()
+    libs.threadmanager.register(libs.globals.global_vars["APIServerThread"])
+    libs.globals.global_vars["APIServerThread"].start()
 
+if __name__ == "__main__":
+    start()
 #ip, port = server.server_address
 
 #server.serve_forever()
