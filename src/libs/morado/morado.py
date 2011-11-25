@@ -63,7 +63,7 @@ class APIHandler(asynchat.async_chat):
                 length = len(retjson)
                 self.push("%4i%s" % (length,retjson))
 
-                print "api returned", retjson
+                #print "api returned", retjson
                 self.data = 0
                 self.buffer = ""
                 self.size = -1
@@ -91,9 +91,9 @@ class APIHandler(asynchat.async_chat):
                                             # make a dict
 
         except Exception as ex:
-            print libs.globals.global_vars["apifunctions"]
+            #print libs.globals.global_vars["apifunctions"]
             ex = traceback.format_exc()
-            print ex
+            #print ex
             return {"error2": ex}
 
 
@@ -112,7 +112,7 @@ class APIServer(asyncore.dispatcher):
             pass
         else:
             sock, addr = pair
-            print 'Incoming connection from %s' % repr(addr)
+            #print 'Incoming connection from %s' % repr(addr)
             handler = APIHandler(sock)
 
 #class APIServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
@@ -134,8 +134,9 @@ class APIServer(asyncore.dispatcher):
 class APIServerThead(libs.threadmanager.Thread):
 
     def run(self):
-        libs.globals.global_vars["apiserver"] = APIServer('localhost', 9999)
-        while libs.globals.global_vars["running"]:
+        libs.globals.global_vars["apiserver"] = APIServer('localhost', 3451)
+        print('API-server running on port 3451 : Started')
+        while not self._stop.isSet():
             asyncore.loop(timeout = 5, count = 1)
 
 def start():
