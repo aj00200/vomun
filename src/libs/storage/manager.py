@@ -37,13 +37,24 @@ class StorageDB(libs.events.Handler):
             if query.id in self.usks:
                 return self.usks[query.id]
             
-    def load(self, path):
-        '''Load the database from a storage file.'''
-        pass
-        
     def save(self, path):
-        '''Save the database to a storage file.'''
-        pass
+        '''Save the database from a storage file.'''
+        out_json = {}
+        for block in self.uuks.values():
+            out_json[block.hash] = block.data
+            
+        db_file = open(path, 'w') # TODO: possibly make a backup?
+        db_file.write(json.dumps(out_json, indent = 2))
+        db_file.close()
+        
+    def load(self, path):
+        '''Load the database to a storage file.'''
+        db_file = open(path, 'r')
+        db_json = json.loads(db_file.read())
+        db_file.close
+        
+        for block in db_json:
+            self.uuks[block] = db_json[block]
         
     # Event methods
     def got_message(self, data):
