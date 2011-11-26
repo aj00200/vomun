@@ -1,7 +1,4 @@
 '''This module manages events and evet handlers'''
-
-
-
 event_handlers = []
 
 def register_handler(handler):

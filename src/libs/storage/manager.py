@@ -10,6 +10,9 @@ import libs.errors
 import libs.events
 
 class Block(object):
+    '''A class which is used to store data. It is currently limited to 2048
+    bits because of the current RSA crypto restrictions.
+    '''
     max_size = 2048 # 2048 for now because of the RSA Crypto limit
     def __init__(self, data):
         if len(data) > self.max_size:
@@ -17,6 +20,7 @@ class Block(object):
         self.data = data
         self.hash = hashlib.sha256(data).hexdigest()
         # TODO: Decide on using sha256 or sha1 (or even sha512)^
+        # TODO: Store a last-access timestamp
 
 class StorageDB(libs.events.Handler):
     '''An database type object to store and sort blocks.'''
@@ -26,12 +30,15 @@ class StorageDB(libs.events.Handler):
 
     # Database methods
     def add_usk(self, block):
+        '''Add a USK block to the data store.'''
         self.usks[block.hash] = block
 
     def add_uuk(self, block):
+        '''Add a UUK block to the data store.'''
         self.uuks[block.hash] = block
 
     def search(self, query):
+        '''Search the database for a block which matches the query.'''
         if query.type == 'UUK':
             if query.id in self.uuks:
                 return self.uuks[query.id]
@@ -62,13 +69,21 @@ class StorageDB(libs.events.Handler):
 
     # Event methods
     def got_message(self, packet):
+        '''Got a message. For now we are assuming that the message needs to be
+        stored but this is not necessarily the case. In future versions we will
+        have a custom packet for messages which need to be stored by other
+        nodes. By default we are using UUK and there is a 100% chance that we
+        will store this packet. There is no file size limit.
+        '''
         message = packet.message
         self.add_uuk(Block(message))
 
     def got_request(self, query):
+        '''Got a request for a data block.'''
         self.search(query)
 
     def shutdown(self):
+        '''Save the data store into a file.'''
         self.save(self.path)
 
 class Query(object):
