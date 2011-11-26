@@ -4,15 +4,15 @@ it into a list of Friend objects.
 import json
 import os.path
 import time
+
+import libs
 from tunnels import directudp
-from libs.globals import global_vars
 import libs.encryption.rsa
 from libs.packets import parse_packets, packets_by_id, make_packet
 from libs.morado.functions import register_with_api
 
 
-
-global_vars['friends'] = {}
+libs.globals['friends'] = {}
 friendlistpath = os.path.expanduser('~/.vomun/friends.json')
 friendlistr = open(friendlistpath, "r")
 
@@ -29,9 +29,9 @@ def load_friends():
             friendo = Friend(keyid, ip, port, name)
 
             print friendo
-            global_vars['friends'][keyid] = friendo
+            libs.globals['friends'][keyid] = friendo
 
-        except Exception as ex: 
+        except Exception as ex:
             print(ex, friend)
 
 @register_with_api
@@ -41,7 +41,7 @@ def save_friends():
     json_template = '''[
 %s
 ]'''
-    friendsjson = ','.join([friend._json() for friend in global_vars['friends'].values()])
+    friendsjson = ','.join([friend._json() for friend in libs.globals['friends'].values()])
     friendlistw.write(json_template % friendsjson)
     friendlistw.flush()
 
@@ -49,16 +49,16 @@ def save_friends():
 def add_friend(keyid, ip, port = 1337, name = 'unknown'):
     '''Add a friend to our friends list'''
     friend_obj = Friend(keyid, ip, port, name)
-    global_vars['friends'][keyid] = friend_obj
+    libs.globals['friends'][keyid] = friend_obj
     save_friends()
 
 @register_with_api
 def del_friend(keyid):
     '''Delete a friend'''
     try:
-        del global_vars['friends'][keyid]
+        del libs.globals['friends'][keyid]
     except:
-        global_vars['logger'].info('Friend %s does not exist.' % keyid)
+        libs.globals['logger'].info('Friend %s does not exist.' % keyid)
 
 
 class Friend:
@@ -75,11 +75,11 @@ class Friend:
         self.rconnection = None
         self.wconnection = None
         self.data = ''
-        
+
         print('Setting up encryption. %s:%s' % (
-                libs.globals.global_vars['config']['nodekey'], self.keyid))
+                libs.config['nodekey'], self.keyid))
         self.encryption = libs.encryption.rsa.Encryption(
-                libs.globals.global_vars['config']['nodekey'], self.keyid)
+                libs.config['nodekey'], self.keyid)
 
     def parse_packets(self):
         print('parsing packets of %s' % self.name)
@@ -100,7 +100,7 @@ class Friend:
                                reason=reason,reasonlength=len(reason))
             self.send(disc)
             return
-        
+
         # Take acctions depending on the type of packet
         if packet_id == 'ConnectionRequest':
             print('sending acceptConnection')
@@ -112,10 +112,10 @@ class Friend:
         elif packet_id == 'AcceptConnection':
             print('got acceptConnection')
             self.connected = True
-            
+
         elif packet_id == 'Message':
             libs.events.broadcast('got_message', packet)
-            
+
         else:
             print packet_id, packet
 
@@ -169,7 +169,7 @@ class Friend:
         "name": "%s",
         "keyid": "%s",
         "lastip": "%s",
-        "port": %i    
+        "port": %i
     }''' % (self.name, self.keyid, self.ip, self.port)
 
     def _rpc(self):
@@ -180,11 +180,11 @@ class Friend:
             'lastip' : self.ip,
             'port' : self.port
         }
-        
+
     def __decrypt(self):
         self.data = self.encryption.decrypt(self.data)
         print('Decrypted data: %s' % self.data)
-        
+
     def __str__(self):
         return '<friend %s on %s:%i with id %s>' % (
                 self.name, self.ip, self.port, self.keyid)
@@ -198,21 +198,21 @@ class Friend:
 @register_with_api
 def get_friend_by_ip(ip):
     '''Search for a Friend object with the given ip and return it.'''
-    for friend in global_vars['friends'].values():
+    for friend in libs.globals['friends'].values():
         if friend.ip == ip:
             return friend
 
 @register_with_api
 def get_friend_by_name(name):
     '''Search for a Friend object with the given name and return it.'''
-    for friend in global_vars['friends'].values():
+    for friend in libs.globals['friends'].values():
         if friend.name == name:
             return friend
 
 @register_with_api
 def get_friend_by_key(keyid):
     '''Search for a Friend with the given key ID and return it.'''
-    for friend in global_vars['friends'].values():
+    for friend in libs.globals['friends'].values():
         if friend.keyid == keyid:
             return friend
 
@@ -236,7 +236,7 @@ def friend_rename(friendname, newname):
 @register_with_api
 def friend_list():
     '''Return a list of friends.'''
-    friendslist = [friend._rpc() for friend in global_vars['friends'].values()]
+    friendslist = [friend._rpc() for friend in libs.globals['friends'].values()]
     return friendslist
 
 @register_with_api

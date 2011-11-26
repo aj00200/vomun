@@ -3,15 +3,15 @@ Internet browser (Firefox prefered).'''
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import libs.threadmanager
 import uis.web.handler
-import libs.globals
 import libs.events
+import libs
 
 
 class MyHandler(BaseHTTPRequestHandler):
     '''Handles events from the web server and passes them out as events to
     libs.events via the broadcast function. The event is sent to the
     web_ui_request method of all registered event handlers.'''
-    
+
     def do_GET(self):
         '''Handle GET requests'''
         libs.events.broadcast('web_ui_request', self.path, self)
@@ -24,13 +24,13 @@ class MyHandler(BaseHTTPRequestHandler):
 ##            if ctype == 'multipart/form-data':
 ##                query = cgi.parse_multipart(self.rfile, pdict)
 ##            self.send_response(301)
-##            
+##
 ##            self.end_headers()
 ##            upfilecontent = query.get('upfile')
 ##            print('filecontent', upfilecontent[0])
 ##            self.wfile.write('<html>POST OK.<br /><br />');
 ##            self.wfile.write(upfilecontent[0]);
-##            
+##
 ##        except:
 ##            pass
 
@@ -48,8 +48,8 @@ class Server(libs.threadmanager.Thread):
                 print('^C received, shutting down web server')
                 self.server.socket.close()
                 self._stop.set()
-            
-## Start the server and handler            
+
+## Start the server and handler
 def start():
     '''Start the user interface. Create the Server object and the listener
     we use to listen for events from this interface.

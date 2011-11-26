@@ -17,7 +17,7 @@ except ImportError:
         Get it for Linux at https://www.dlitz.net/software/pycrypto/
         Get it for Windows at http://www.voidspace.org.uk/python/modules.shtml#pycrypto
     ''')
-    
+
 # Check PyCrpyto version basics - require v2.1.x or higher
 if Crypto.version_info[0] < 2 or Crypto.version_info[1] < 1:
     raise libs.errors.DependancyError(
@@ -27,7 +27,7 @@ if Crypto.version_info[0] < 2 or Crypto.version_info[1] < 1:
 # Find local variables
 print('[*] Preparing for setup...')
 HOME = os.path.expanduser('~')
-VOMUN_PATH = os.path.join(HOME, '.vomun')
+VOMUN_PATH = os.path.join(HOME, '.vomun', '')
 KEYS_PATH = os.path.join(VOMUN_PATH, 'keys.json')
 CONFIG_PATH = os.path.join(VOMUN_PATH, 'config.json')
 
@@ -123,7 +123,7 @@ except IOError:
         friendlistr = open(friendlistpath, "w")
         friendlistr.write('[]')
         friendlistr.close()
-        
+
 ## Setup complete
 print(' == Setup Complete ==')
 print('''

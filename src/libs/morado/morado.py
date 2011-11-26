@@ -10,8 +10,8 @@ import sys
 path =  os.getcwd()
 sys.path.append(path)
 
+import libs
 import libs.threadmanager
-import libs.globals
 import libs.morado.functions
 
 def errorfunc(*args):
@@ -83,7 +83,7 @@ class APIHandler(asynchat.async_chat):
         args = request["args"]
 
         try:
-            ret =  libs.globals.global_vars["apifunctions"][function](*args)
+            ret =  libs.globals['apifunctions'][function](*args)
             if isinstance(ret, dict):
                 return ret
             else:
@@ -91,7 +91,7 @@ class APIHandler(asynchat.async_chat):
                                             # make a dict
 
         except Exception as ex:
-            #print libs.globals.global_vars["apifunctions"]
+            #print libs.globals["apifunctions"]
             ex = traceback.format_exc()
             #print ex
             return {"error2": ex}
@@ -134,7 +134,7 @@ class APIServer(asyncore.dispatcher):
 class APIServerThead(libs.threadmanager.Thread):
 
     def run(self):
-        libs.globals.global_vars["apiserver"] = APIServer('localhost', 3451)
+        libs.globals['apiserver'] = APIServer('localhost', 3451)
         print('API-server running on port 3451 : Started')
         while not self._stop.isSet():
             asyncore.loop(timeout = 5, count = 1)
@@ -143,13 +143,13 @@ def start():
     '''Start the API interface. Create the Server object and the listener
     we use to listen for events from this interface.
     '''
-    """libs.globals.global_vars["apiserver"] = APIServer('localhost', 9999)
-    libs.threadmanager.register(libs.globals.global_vars["apiserver"])
-    libs.globals.global_vars["apiserver"].start()"""
+    """libs.globals['apiserver'] = APIServer('localhost', 9999)
+    libs.threadmanager.register(libs.globals['apiserver'])
+    libs.globals['apiserver'].start()"""
     #api.functions.register()
-    libs.globals.global_vars["APIServerThread"] = APIServerThead()
-    libs.threadmanager.register(libs.globals.global_vars["APIServerThread"])
-    libs.globals.global_vars["APIServerThread"].start()
+    libs.globals['APIServerThread'] = APIServerThead()
+    libs.threadmanager.register(libs.globals['APIServerThread'])
+    libs.globals['APIServerThread'].start()
 
 if __name__ == "__main__":
     start()

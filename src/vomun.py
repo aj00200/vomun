@@ -3,17 +3,16 @@
 run them.'''
 import time
 
-import libs.globals
+import libs
 
-print(libs.globals.global_vars['anon+']['banner'] % 
-        (libs.globals.global_vars['anon+']['VERSION'], 
-        libs.globals.global_vars['anon+']['BUILD']))
-        
+print(libs.globals['anon+']['banner'] %
+        (libs.globals['anon+']['VERSION'],
+        libs.globals['anon+']['BUILD']))
+
 import libs.threadmanager
 import libs.browser
 import libs.events
 import libs.logs
-import libs.config
 
 print('''
      == Warning! ==
@@ -29,7 +28,7 @@ if __name__ == '__main__':
     # Create the API Server. Used by external Applications.
     #import api.server
     #api.server.start()
-    
+
     import libs.morado.morado
     libs.morado.morado.start()
 
@@ -42,31 +41,32 @@ if __name__ == '__main__':
     # Load and prepare our list of friends
     import libs.friends as friends
     friends.load_friends()
-    
+
     # Load connection handlers and start
     import tunnels.directudp
     tunnels.directudp.start()
-    
+
     # Start the web interface
     import uis.web.manager
     uis.web.manager.start()
-    
+
     libs.browser.open('http://localhost:7777/')
-    
+
     # Start the storage database
     import libs.storage.manager
     libs.storage.manager.start()
-    
+
     # Start the API
     ## main loop
-    while libs.globals.global_vars['running']:
+    while libs.globals['running']:
         time.sleep(1)
-    
+
     ## cleanup
+    libs.events.broadcast('shutdown')
     libs.threadmanager.killall()
     libs.threadmanager.close_sockets()
     friends.save_friends()
-    libs.config.save_config()
-    
+    libs.config.save()
+
     exit()
 

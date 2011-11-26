@@ -37,3 +37,8 @@ class Handler(object):
         `connection` is what we will use to send data back'''
         pass
         
+    def shutdown(self):
+        '''Called when Anonplus is going to shutdown. Registered event handlers
+        should do any necessary saving and exit as soon as possible.'''
+        pass
+        

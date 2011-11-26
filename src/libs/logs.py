@@ -1,8 +1,6 @@
 import libs.events
 OUTPUT = True
 
-import libs.globals
-
 
 class Logger(libs.events.Handler):
     '''Print events as they happen. TODO: Write to a log file'''
@@ -20,5 +18,4 @@ class Logger(libs.events.Handler):
         if OUTPUT:
             print('[*] %s' % message)
 
-#libs.globals.global_vars['logger'] = Logger()
 libs.events.register_handler(Logger())

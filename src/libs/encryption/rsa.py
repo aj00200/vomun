@@ -6,9 +6,9 @@ against RSA!!!!
 import Crypto.PublicKey.RSA
 import hashlib
 import json
-import libs.config
+import libs
 
-KEY_PATH = libs.globals.global_vars['config']['keyfile']
+KEY_PATH = libs.config['keyfile']
 keys = {}
 
 class Encryption(object):
