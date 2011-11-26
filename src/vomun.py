@@ -62,7 +62,7 @@ if __name__ == '__main__':
         time.sleep(1)
 
     ## cleanup
-    libs.events.broadcast('shutdown')
+    libs.events.broadcast('got_shutdown')
     libs.threadmanager.killall()
     libs.threadmanager.close_sockets()
     friends.save_friends()

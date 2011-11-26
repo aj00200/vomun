@@ -49,6 +49,8 @@ class StorageDB(libs.events.Handler):
         db_file.write(json.dumps(out_json, indent = 2))
         db_file.close()
 
+        libs.events.broadcast('logthis', 'Saved the data store.')
+
     def load(self, path):
         '''Load the database to a storage file.'''
         db_file = open(path, 'r')
@@ -79,5 +81,4 @@ def start():
     '''Create the storage database.'''
     database = StorageDB()
     database.path = libs.config['vomundir'] + 'blocks.json'
-    print('Path is: ' + database.path)
     libs.events.register_handler(database)

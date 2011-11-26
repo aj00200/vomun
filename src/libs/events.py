@@ -14,7 +14,7 @@ def register_handler(handler):
 def unregister_handler(handler):
     '''Unregister an event handler'''
     event_handlers.remove(handler)
-    
+
 def broadcast(event_type, *args):
     '''Broadcast and event to all handlers in `handlers`'''
     for handler in event_handlers:
@@ -30,15 +30,18 @@ class Handler(object):
     def got_connect(self, connection):
         '''Called when we get or establish a connection'''
         pass
-        
+
     def web_ui_request(self, path, connection):
         '''The user made a request to our localhost web address.
         `path` is the file path requested by the user.
         `connection` is what we will use to send data back'''
         pass
-        
-    def shutdown(self):
+
+    def got_shutdown(self):
         '''Called when Anonplus is going to shutdown. Registered event handlers
         should do any necessary saving and exit as soon as possible.'''
         pass
-        
+
+    def logthis(self):
+        '''Called to send information to the log file or output.'''
+        pass

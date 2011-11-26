@@ -6,6 +6,7 @@ import os.path
 import time
 
 import libs
+import libs.events
 from tunnels import directudp
 import libs.encryption.rsa
 from libs.packets import parse_packets, packets_by_id, make_packet
@@ -31,7 +32,7 @@ def load_friends():
             print friendo
             libs.globals['friends'][keyid] = friendo
 
-        except Exception as ex:
+        except Exception as error:
             print(ex, friend)
 
 @register_with_api
@@ -76,7 +77,7 @@ class Friend:
         self.wconnection = None
         self.data = ''
 
-        print('Setting up encryption. %s:%s' % (
+        libs.events.broadcast('logthis', 'Setting up encryption. %s:%s' % (
                 libs.config['nodekey'], self.keyid))
         self.encryption = libs.encryption.rsa.Encryption(
                 libs.config['nodekey'], self.keyid)
@@ -86,7 +87,7 @@ class Friend:
         self.__decrypt()
         packets, leftovers =  parse_packets(self.data)
         self.data = leftovers
-        print('leftovers:', leftovers)
+        libs.events.broadcast('logthis', 'leftovers: %s' % leftovers)
         for packet in packets:
             self.handle_packets(packet[0],packet[1])
 
@@ -96,6 +97,7 @@ class Friend:
             packet_id = packets_by_id[packet_id]
         else: # The packet has an unknown ID
             reason = 'Invalid packetId: %i' % packet_id
+            libs.events.broadcast('logthis', 'Invalid packet: %s' %packet_id)
             disc = make_packet('Disconnect',reasonType='Custom',
                                reason=reason,reasonlength=len(reason))
             self.send(disc)
@@ -191,10 +193,6 @@ class Friend:
 
 
 ## API section
-
-
-
-
 @register_with_api
 def get_friend_by_ip(ip):
     '''Search for a Friend object with the given ip and return it.'''
