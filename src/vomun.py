@@ -32,12 +32,6 @@ if __name__ == '__main__':
     import libs.morado.morado
     libs.morado.morado.start()
 
-    # Create the console. Later to be replaced with an extenal app
-    #from libs.console import console
-    #consoleO = console()
-    #libs.threadmanager.register(consoleO)
-    #consoleO.start()
-
     # Load and prepare our list of friends
     import libs.friends as friends
     friends.load_friends()
@@ -57,7 +51,7 @@ if __name__ == '__main__':
     libs.storage.manager.start()
 
     # Start the API
-    ## main loop
+    ## wait loop
     while libs.globals['running']:
         time.sleep(1)
 

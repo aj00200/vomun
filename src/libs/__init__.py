@@ -48,5 +48,6 @@ class Configuration(dict):
         config_file.write(json.dumps(self, indent = 2))
         config_file.close()
 
+# Load the config file
 config = Configuration()
 config.load()
