@@ -1,0 +1,88 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-11-27 17:55+CST\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: setup.py:7
+msgid ""
+"\n"
+"=== Anon+ Setup ===\n"
+"== Project Vomun ==\n"
+msgstr ""
+
+#: setup.py:24
+msgid ""
+"PyCrypto is required to use Anon+\n"
+"        Get it for Linux at https://www.dlitz.net/software/pycrypto/\n"
+"        Get it for Windows at http://www.voidspace.org.uk/python/modules.shtml#pycrypto\n"
+"    "
+msgstr ""
+
+#: setup.py:32
+msgid "Please update PyCrypto: https://www.dlitz.net/software/pycrypto/"
+msgstr ""
+
+#: setup.py:37
+msgid "[*] Preparing for setup..."
+msgstr ""
+
+#: setup.py:47
+msgid " [*] Making ~/.vomun/"
+msgstr ""
+
+#: setup.py:60
+msgid "[*] Setting up encryption keys"
+msgstr ""
+
+#: setup.py:61
+msgid " [*] Generating a 2048 bit node key"
+msgstr ""
+
+#: setup.py:62 setup.py:80
+msgid "     this could take a while..."
+msgstr ""
+
+#: setup.py:74 setup.py:89
+msgid "  [*] Done. Key fingerprint:"
+msgstr ""
+
+#: setup.py:79
+msgid " [*] Generating a 2048 bit identity key"
+msgstr ""
+
+#: setup.py:93
+msgid "[*] Writing keys to keys.json"
+msgstr ""
+
+#: setup.py:109
+msgid "[*] Generating the config file..."
+msgstr ""
+
+#: setup.py:119
+msgid " [*] Writing the config file."
+msgstr ""
+
+#: setup.py:137
+msgid " == Setup Complete =="
+msgstr ""
+
+#: setup.py:138
+msgid ""
+"\n"
+" == Anon+ Setup is Complete ==\n"
+"Please run vomun.py and then go to\n"
+"http://localhost:7777/ to use it.\n"
+msgstr ""
+
