@@ -8,6 +8,9 @@ import json
 import hashlib
 import libs.errors
 
+if __name__ != '__main__':
+    exit() # Otherwise pydoc will run the setup
+
 
 try:
     import Crypto
