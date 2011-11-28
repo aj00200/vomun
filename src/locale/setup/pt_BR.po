@@ -1,0 +1,101 @@
+# Brazilian Portuguese translation for anonplus
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
+# This file is distributed under the same license as the anonplus package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: anonplus\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2011-11-28 00:39+0000\n"
+"PO-Revision-Date: 2011-11-28 02:12+0000\n"
+"Last-Translator: ren mas <Unknown>\n"
+"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-11-28 02:44+0000\n"
+"X-Generator: Launchpad (build 14381)\n"
+
+#: setup.py:7
+msgid ""
+"\n"
+"=== Anon+ Setup ===\n"
+"== Project Vomun ==\n"
+msgstr ""
+"\n"
+"=== Instalação Anon+  ===\n"
+
+#: setup.py:24
+msgid ""
+"PyCrypto is required to use Anon+\n"
+"        Get it for Linux at https://www.dlitz.net/software/pycrypto/\n"
+"        Get it for Windows at "
+"http://www.voidspace.org.uk/python/modules.shtml#pycrypto\n"
+"    "
+msgstr ""
+"PyCrypto é requerido para usar o Anon+\n"
+"        Download para Linux em: https://www.dlitz.net/software/pycrypto/\n"
+"        Download para Windows em: "
+"http://www.voidspace.org.uk/python/modules.shtml#pycrypto\n"
+"    "
+
+#: setup.py:32
+msgid "Please update PyCrypto: https://www.dlitz.net/software/pycrypto/"
+msgstr "Atualize o PyCrypto: https://www.dlitz.net/software/pycrypto/"
+
+#: setup.py:37
+msgid "[*] Preparing for setup..."
+msgstr "[*] Preparando instalação..."
+
+#: setup.py:47
+msgid " [*] Making ~/.vomun/"
+msgstr " [*] Criando ~/.vomun/"
+
+#: setup.py:60
+msgid "[*] Setting up encryption keys"
+msgstr "[*] Configurando chaves de criptografia"
+
+#: setup.py:61
+msgid " [*] Generating a 2048 bit node key"
+msgstr " [*] Gerando chaves de 2048 bit"
+
+#: setup.py:62 setup.py:80
+msgid "     this could take a while..."
+msgstr "     isso pode demorar um pouco..."
+
+#: setup.py:74 setup.py:89
+msgid "  [*] Done. Key fingerprint:"
+msgstr "  [*] Concluído. Impressão digital :"
+
+#: setup.py:79
+msgid " [*] Generating a 2048 bit identity key"
+msgstr " [*] Gerando identificação chave de 2048 bit"
+
+#: setup.py:93
+msgid "[*] Writing keys to keys.json"
+msgstr "[*] Gravando chaves em keys.json"
+
+#: setup.py:109
+msgid "[*] Generating the config file..."
+msgstr "[*] Gerando arquivo de configuração..."
+
+#: setup.py:119
+msgid " [*] Writing the config file."
+msgstr " [*] Gravando arquivo de configuração."
+
+#: setup.py:137
+msgid " == Setup Complete =="
+msgstr " == Instalação concluída =="
+
+#: setup.py:138
+msgid ""
+"\n"
+" == Anon+ Setup is Complete ==\n"
+"Please run vomun.py and then go to\n"
+"http://localhost:7777/ to use it.\n"
+msgstr ""
+"\n"
+" == Instalação do Anon+  foi concluída ==\n"
+"por favor execute vomun.py e vá para\n"
+"http://localhost:7777/ para iniciar.\n"
